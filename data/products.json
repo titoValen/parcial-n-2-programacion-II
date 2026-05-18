@@ -1,0 +1,167 @@
+[
+  {
+    "id": 1,
+    "name": "Forum",
+    "description": "Zapatilla urbana clasica con diseno retro y gran comodidad para uso diario.",
+    "price": 150000,
+    "image": "img/zapatillas/adidas_forum_low_cl.webp",
+    "alt": "Zapatilla Adidas Forum Low CL color blanco con franjas azules vista lateral.",
+    "category": "Urbanas",
+    "stock": 999,
+    "brand": "Adidas"
+  },
+  {
+    "id": 2,
+    "name": "Runfalcon",
+    "description": "Zapatilla de running ligera para entrenamientos diarios y caminatas.",
+    "price": 75000,
+    "image": "img/zapatillas/adidas_runfalcon_5.webp",
+    "alt": "Zapatilla Adidas Runfalcon 5 negra con detalles blancos y suela degradada.",
+    "category": "Running",
+    "stock": 999,
+    "brand": "Adidas"
+  },
+  {
+    "id": 3,
+    "name": "Ultraboost",
+    "description": "Modelo running con amortiguacion responsiva y ajuste comodo.",
+    "price": 175000,
+    "image": "img/zapatillas/adidas_ultraboost_light.webp",
+    "alt": "Zapatilla Adidas Ultraboost Light blanca con detalles verdes y suela gruesa.",
+    "category": "Running",
+    "stock": 999,
+    "brand": "Adidas"
+  },
+  {
+    "id": 4,
+    "name": "Yeezy",
+    "description": "Zapatilla urbana premium con estilo moderno y silueta distintiva.",
+    "price": 200000,
+    "image": "img/zapatillas/adidas_yeezy.webp",
+    "alt": "Zapatilla Adidas Yeezy color crema con diseno tejido y suela translcida.",
+    "category": "Urbanas",
+    "stock": 999,
+    "brand": "Adidas"
+  },
+  {
+    "id": 5,
+    "name": "Gel Nimbus",
+    "description": "Zapatilla de running con foco en confort para largas distancias.",
+    "price": 300000,
+    "image": "img/zapatillas/asics_gel_nimbus_27.webp",
+    "alt": "Zapatilla Asics Gel Nimbus 27 gris con lineas claras y suela alta.",
+    "category": "Running",
+    "stock": 999,
+    "brand": "Asics"
+  },
+  {
+    "id": 6,
+    "name": "Chuck Taylor",
+    "description": "Clasica silueta de cana alta con plataforma y look casual.",
+    "price": 130000,
+    "image": "img/zapatillas/converse_chuck_taylor_all_star_lift_hi_sintético.webp",
+    "alt": "Zapatilla Converse Chuck Taylor All Star Lift Hi negra de cana alta.",
+    "category": "Urbanas",
+    "stock": 999,
+    "brand": "Converse"
+  },
+  {
+    "id": 7,
+    "name": "Fresh Foam",
+    "description": "Calzado de running con amortiguacion suave para uso intensivo.",
+    "price": 150000,
+    "image": "img/zapatillas/fresh_foam_x_1080_v_13.webp",
+    "alt": "Zapatilla New Balance Fresh Foam X 1080 v13 azul con suela blanca.",
+    "category": "Running",
+    "stock": 999,
+    "brand": "New Balance"
+  },
+  {
+    "id": 8,
+    "name": "Air Force 1",
+    "description": "Icono urbano de Nike con diseno limpio y atemporal.",
+    "price": 180000,
+    "image": "img/zapatillas/nike_air_force_1_07.webp",
+    "alt": "Zapatilla Nike Air Force 1 '07 blanca clasica vista lateral.",
+    "category": "Urbanas",
+    "stock": 999,
+    "brand": "Nike"
+  },
+  {
+    "id": 9,
+    "name": "Air Jordan",
+    "description": "Modelo de basquet inspirado en estilo retro y alto rendimiento.",
+    "price": 240000,
+    "image": "img/zapatillas/nike_air_jordan.webp",
+    "alt": "Zapatilla Nike Air Jordan de cana alta en negro, rojo y blanco.",
+    "category": "Basquet",
+    "stock": 999,
+    "brand": "Nike"
+  },
+  {
+    "id": 10,
+    "name": "Dunk Low",
+    "description": "Sneaker urbana clasica, ideal para outfits casuales diarios.",
+    "price": 185000,
+    "image": "img/zapatillas/nike_dunk_low_retro.webp",
+    "alt": "Zapatilla Nike Dunk Low Retro en blanco y negro estilo urbano.",
+    "category": "Urbanas",
+    "stock": 999,
+    "brand": "Nike"
+  },
+  {
+    "id": 11,
+    "name": "Pegasus",
+    "description": "Zapatilla de running versatil para entrenamientos y fondo.",
+    "price": 100000,
+    "image": "img/zapatillas/nike_air_zoom_pegasus_37.webp",
+    "alt": "Zapatilla Nike Air Zoom Pegasus 37 negra con suela blanca.",
+    "category": "Running",
+    "stock": 999,
+    "brand": "Nike"
+  },
+  {
+    "id": 12,
+    "name": "Puma Smash",
+    "description": "Diseno urbano minimalista con inspiracion en tenis clasico.",
+    "price": 45000,
+    "image": "img/zapatillas/puma_smash_v2.webp",
+    "alt": "Zapatilla Puma Smash v2 gris con suela blanca y perfil bajo.",
+    "category": "Urbanas",
+    "stock": 999,
+    "brand": "Puma"
+  },
+  {
+    "id": 13,
+    "name": "Velocity Nitro",
+    "description": "Modelo de running con buena respuesta y traccion estable.",
+    "price": 110000,
+    "image": "img/zapatillas/puma_velocity_nitro_3.webp",
+    "alt": "Zapatilla Puma Velocity Nitro 3 blanca con detalle lateral multicolor.",
+    "category": "Running",
+    "stock": 999,
+    "brand": "Puma"
+  },
+  {
+    "id": 14,
+    "name": "Old Skool",
+    "description": "Clasico skate urbano con capellada resistente y suela waffle.",
+    "price": 160000,
+    "image": "img/zapatillas/vans_old_skool_negras.webp",
+    "alt": "Zapatilla Vans Old Skool negra con franja blanca y suela blanca.",
+    "category": "Skate",
+    "stock": 999,
+    "brand": "Vans"
+  },
+  {
+    "id": 15,
+    "name": "Floatride",
+    "description": "Zapatilla de running liviana para entrenamientos regulares.",
+    "price": 150000,
+    "image": "img/zapatillas/rbk_floatride_energy_6.webp",
+    "alt": "Zapatilla Reebok Floatride Energy 6 turquesa con suela blanca.",
+    "category": "Running",
+    "stock": 999,
+    "brand": "Reebok"
+  }
+]

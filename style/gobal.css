@@ -1,0 +1,57 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'Rocket Brush';
+  src: url('../fonts/rocket_brush/Rocket_Brush.otf') format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist';
+  src: url('../fonts/geist/geist-latin-400-normal.ttf') format('truetype');
+}
+
+:root {
+  --font-title: 'Rocket Brush';
+  --font-body: 'Geist';
+
+  --color-black: #101010;
+  --color-white: #f0f0f0;
+  --color-green: #A6FF00;
+  --color-blue: #00BFFF;
+}
+
+body {
+  background: var(--color-white);
+  color: var(--color-black);
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+li {
+  list-style: none;
+}
+
+p, a, span, li {
+  text-wrap: pretty;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
