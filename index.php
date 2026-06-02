@@ -16,7 +16,7 @@ require_once 'components/head.php';
     $vista = 'home';
   }
 
-  require_once "sections/$vista.php";
+  require_once "views/$vista.php";
 
   ?>
   <?php require_once 'components/footer.php'; ?>
