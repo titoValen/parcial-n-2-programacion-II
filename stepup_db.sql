@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-06-2026 a las 21:07:11
+-- Tiempo de generación: 02-06-2026 a las 20:44:13
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `stepup_db`
 --
+CREATE DATABASE IF NOT EXISTS `stepup_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `stepup_db`;
 
 -- --------------------------------------------------------
 
@@ -106,6 +108,26 @@ INSERT INTO `product` (`id`, `name`, `description`, `price`, `image`, `alt`, `st
 (14, 'Old Skool', 'Clasico skate urbano con capellada resistente y suela waffle.', 160000, 'vans_old_skool_negras', 'Zapatilla Vans Old Skool negra con franja blanca y suela blanca.', 8, 4, 7),
 (15, 'Floatride', 'Zapatilla de running liviana para entrenamientos regulares.', 150000, 'rbk_floatride_energy_6', 'Zapatilla Reebok Floatride Energy 6 turquesa con suela blanca.', 4, 2, 8);
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `user`
+--
+
+INSERT INTO `user` (`id`, `name`, `password`, `role`) VALUES
+(1, 'valen', 'Contraseña', 'admin');
+
 --
 -- Índices para tablas volcadas
 --
@@ -131,6 +153,12 @@ ALTER TABLE `product`
   ADD KEY `fk_product_category` (`id_category`);
 
 --
+-- Indices de la tabla `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -151,6 +179,12 @@ ALTER TABLE `category`
 --
 ALTER TABLE `product`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT de la tabla `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
