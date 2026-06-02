@@ -1,4 +1,2 @@
 <?php
-  $vistas_creadas = ['home', 'producto', 'detalle', 'contacto', 'alumno'];
-
-?>
+  $vistas_creadas = ['home', 'producto', 'detalle', 'contacto', 'alumno', 'admin'];
