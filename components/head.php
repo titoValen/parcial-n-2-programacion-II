@@ -34,6 +34,9 @@
       case 'detalle':
         echo '<link rel="stylesheet" href="style/detalle.css">';
         break;
+      case 'admin':
+        echo '<link rel="stylesheet" href="style/admin.css">';
+        break;
       default:
         echo 'Algo ocurrio mal al cargar la vista del css';
     }
