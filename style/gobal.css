@@ -5,24 +5,24 @@
 }
 
 @font-face {
-  font-family: 'Rocket Brush';
-  src: url('../fonts/rocket_brush/Rocket_Brush.otf') format('opentype');
+  font-family: "Rocket Brush";
+  src: url("../fonts/rocket_brush/Rocket_Brush.otf") format("opentype");
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Geist';
-  src: url('../fonts/geist/geist-latin-400-normal.ttf') format('truetype');
+  font-family: "Geist";
+  src: url("../fonts/geist/geist-latin-400-normal.ttf") format("truetype");
 }
 
 :root {
-  --font-title: 'Rocket Brush';
-  --font-body: 'Geist';
+  --font-title: "Rocket Brush";
+  --font-body: "Geist";
 
   --color-black: #101010;
   --color-white: #f0f0f0;
-  --color-green: #A6FF00;
-  --color-blue: #00BFFF;
+  --color-green: #a6ff00;
+  --color-blue: #00bfff;
 }
 
 body {
@@ -33,8 +33,14 @@ body {
   grid-template-rows: auto 1fr auto;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   text-wrap: balance;
+  font-family: var(--font-title);
 }
 
 a {
@@ -46,8 +52,16 @@ li {
   list-style: none;
 }
 
-p, a, span, li {
+p,
+a,
+span,
+li,
+label,
+button,
+input,
+textarea {
   text-wrap: pretty;
+  font-family: var(--font-body);
 }
 
 img {
