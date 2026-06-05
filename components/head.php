@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="style/gobal.css">
   <link rel="stylesheet" href="style/index.css">
 
+  <script src="js/hero.js" defer type="module"></script>
+
   <?php
   require_once 'config/created_views.php';
   if (
