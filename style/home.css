@@ -37,6 +37,16 @@
   max-width: 600px;
 }
 
+.home-presentacion video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 95px);
+  object-fit: cover;
+  z-index: -20;
+}
+
 .home-section {
   display: flex;
   flex-wrap: wrap;
