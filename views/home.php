@@ -7,6 +7,7 @@
       Explora nuestro <strong>catalogo de zapatillas</strong> para estilo urbano,
       entrenamiento running, skate y basquet.
     </p>
+    <!-- <video src="./video/video_1.mp4" autoplay muted loop width="100%" height="100dvh"></video> -->
   </div>
 
   <section class="home-section">
