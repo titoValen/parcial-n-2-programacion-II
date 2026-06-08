@@ -91,7 +91,7 @@
 .filter-panel {
   display: grid;
   gap: 1rem;
-  position: fixed;
+  position: absolute;
   background-color: var(--color-black);
   padding: 1rem;
   color: var(--color-white);
