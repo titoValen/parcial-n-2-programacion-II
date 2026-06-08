@@ -20,4 +20,16 @@ class Brand
   {
     $this->name = $name;
   }
+
+  public static function getAllBrands()
+  {
+    $PDO = (new DB())->getDB();
+
+    $query = "SELECT * FROM brand";
+    $PDOStatement = $PDO->prepare($query);
+    $PDOStatement->setFetchMode(PDO::FETCH_CLASS, self::class);
+    $PDOStatement->execute();
+    $datos = $PDOStatement->fetchAll();
+    return $datos;
+  }
 }

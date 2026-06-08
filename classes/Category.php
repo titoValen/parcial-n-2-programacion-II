@@ -20,4 +20,16 @@ class Category
   {
     $this->name = $name;
   }
+
+  public static function getAllCategories()
+  {
+    $PDO = (new DB())->getDB();
+
+    $query = "SELECT * FROM category";
+    $PDOStatement = $PDO->prepare($query);
+    $PDOStatement->setFetchMode(PDO::FETCH_CLASS, self::class);
+    $PDOStatement->execute();
+    $datos = $PDOStatement->fetchAll();
+    return $datos;
+  }
 }
