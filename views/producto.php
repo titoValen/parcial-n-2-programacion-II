@@ -3,29 +3,14 @@ require_once 'data/conex.php';
 require_once 'classes/Product.php';
 
 $productos = Product::product();
-
-// Obtener valores únicos
-$categorias = array_unique(array_map(fn($p) => $p->getCategory(), $productos));
-$marcas = array_unique(array_map(fn($p) => $p->getBrand(), $productos));
-sort($categorias);
-sort($marcas);
-
-// Leer parámetros GET
-$categoriaActiva = isset($_GET['categoria']) ? $_GET['categoria'] : null;
-$marcaActiva = isset($_GET['marca']) ? $_GET['marca'] : null;
-
-// Aplicar filtro
-if ($categoriaActiva) {
-    $productos = array_filter($productos, fn($p) => $p->getCategory() === $categoriaActiva);
-} elseif ($marcaActiva) {
-    $productos = array_filter($productos, fn($p) => $p->getBrand() === $marcaActiva);
-}
 ?>
 
 <main class="products-section">
   <h1>Productos</h1>
 
-  <div class="filter-wrapper">
+  <?php require_once 'components/filter.php'; ?>
+
+  <!-- <div class="filter-wrapper">
 
     <div class="filter-group">
       <span class="filter-text">Categoría</span>
@@ -53,7 +38,7 @@ if ($categoriaActiva) {
       </nav>
     </div>
 
-  </div>
+  </div> -->
 
   <section class="products-grid">
     <?php foreach ($productos as $producto): ?>
