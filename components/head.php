@@ -28,6 +28,7 @@
         break;
       case 'producto':
         echo '<link rel="stylesheet" href="style/producto.css">';
+        echo '<script src="js/filter.js" defer type="module"></script>';
         break;
       case 'alumno':
         echo '<link rel="stylesheet" href="style/alumno.css">';
