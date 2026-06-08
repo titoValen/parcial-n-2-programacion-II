@@ -1,48 +1,75 @@
 import { $ } from "./elements.js";
 
-// Funcionalidad para mostrar/ocultar el filtro
 $.addEventListener("DOMContentLoaded", () => {
-  const filterButton = $.querySelector(".filter-button");
-  const filterAside = $.querySelector("aside");
+  const toggleBtn = $.querySelector(".filter-toggle-button");
+  const panel = $.querySelector(".filter-panel");
+  const itemsCategory = $.querySelectorAll(".filter-item-category");
+  const itemsBrand = $.querySelectorAll(".filter-item-brand");
+  const cards = $.querySelectorAll(".card");
 
-  if (!filterButton || !filterAside) {
-    console.error("Elementos de filtro no encontrados");
-    return;
-  }
+  if (!toggleBtn || !panel) return;
 
-  filterButton.addEventListener("click", () => {
-    filterAside.classList.toggle("active");
+  // Estado activo de los filtros
+  let filtroCategoria = "todos";
+  let filtroBrand = "todos";
+
+  //Abrir / cerrar panel
+  toggleBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    panel.classList.toggle("active");
   });
 
   $.addEventListener("click", (e) => {
-    if (!e.target.closest(".filter-button") && !e.target.closest("aside")) {
-      filterAside.classList.remove("active");
+    if (
+      !e.target.closest(".filter-toggle-button") &&
+      !e.target.closest(".filter-panel")
+    ) {
+      panel.classList.remove("active");
     }
   });
-});
 
-// Funcionalidad para seleccionar categorías y marcas
-$.addEventListener("DOMContentLoaded", () => {
-  const listItemsCategory = $.querySelectorAll(".filter-item-category");
-  const listItemsBrand = $.querySelectorAll(".filter-item-brand");
+  $.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      panel.classList.remove("active");
+      toggleBtn.focus();
+    }
+  });
 
-  listItemsCategory.forEach((item) => {
+  //Lógica de filtrado
+  function aplicarFiltros() {
+    cards.forEach((card) => {
+      const categoria = card.dataset.category;
+      const marca = card.dataset.brand;
+
+      const coincideCategoria =
+        filtroCategoria === "todos" || categoria === filtroCategoria;
+      const coincideMarca = filtroBrand === "todos" || marca === filtroBrand;
+
+      card.style.display = coincideCategoria && coincideMarca ? "" : "none";
+    });
+  }
+
+  //Selección de categoría
+  itemsCategory.forEach((item) => {
     item.addEventListener("click", () => {
-      if (item.classList.contains("active")) {
-        item.classList.remove("active");
-      } else {
-        item.classList.toggle("active");
-      }
+      // Quitar active de todos los items de categoría
+      itemsCategory.forEach((i) => i.classList.remove("active"));
+      // Poner active en el clickeado
+      item.classList.add("active");
+
+      filtroCategoria = item.dataset.value;
+      aplicarFiltros();
     });
   });
 
-  listItemsBrand.forEach((item) => {
+  //Selección de marca
+  itemsBrand.forEach((item) => {
     item.addEventListener("click", () => {
-      if (item.classList.contains("active")) {
-        item.classList.remove("active");
-      } else {
-        item.classList.toggle("active");
-      }
+      itemsBrand.forEach((i) => i.classList.remove("active"));
+      item.classList.add("active");
+
+      filtroBrand = item.dataset.value;
+      aplicarFiltros();
     });
   });
 });
