@@ -1,8 +1,8 @@
 <?php
-require_once 'classes/Producto.php';
-require_once 'config/endpoint.php';
+require_once 'data/conex.php';
+require_once 'classes/Product.php';
 
-$productos = Producto::obtenerProduct($url);
+$productos = Product::product();
 
 // Obtener valores únicos
 $categorias = array_unique(array_map(fn($p) => $p->getCategory(), $productos));
