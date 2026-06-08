@@ -48,28 +48,15 @@ class Product
     return $this->brand;
   }
 
-  public static function obtenerProduct($data)
+  public static function product()
   {
-    $json = file_get_contents($data);
-    $arrayData = json_decode($json, true);
+    $PDO = (new DB())->getDB();
 
-    $arrayProduct = [];
-
-    foreach ($arrayData as $product) {
-      $productNew = new self();
-
-      $productNew->id = $product['id'];
-      $productNew->name = $product['name'];
-      $productNew->description = $product['description'];
-      $productNew->price = $product['price'];
-      $productNew->image = $product['image'];
-      $productNew->alt = $product['alt'];
-      $productNew->category = $product['category'];
-      $productNew->stock = $product['stock'];
-      $productNew->brand = $product['brand'];
-
-      $arrayProduct[] = $productNew;
-    }
-    return $arrayProduct;
+    $query = "SELECT * FROM product";
+    $PDOStatement = $PDO->prepare($query);
+    $PDOStatement->setFetchMode(PDO::FETCH_CLASS, self::class);
+    $PDOStatement->execute();
+    $datos = $PDOStatement->fetchAll();
+    return $datos;
   }
 }
