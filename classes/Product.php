@@ -52,11 +52,26 @@ class Product
   {
     $PDO = (new DB())->getDB();
 
-    $query = "SELECT * FROM product";
+    $query = "
+      SELECT
+        p.id,
+        p.name,
+        p.description,
+        p.price,
+        p.image,
+        p.alt,
+        p.stock,
+        c.name AS category,
+        b.name AS brand
+      FROM product p
+      INNER JOIN category c ON p.id_category = c.id
+      INNER JOIN brand    b ON p.id_brand    = b.id
+    ";
+
     $PDOStatement = $PDO->prepare($query);
     $PDOStatement->setFetchMode(PDO::FETCH_CLASS, self::class);
     $PDOStatement->execute();
-    $datos = $PDOStatement->fetchAll();
-    return $datos;
+
+    return $PDOStatement->fetchAll();
   }
 }
