@@ -6,7 +6,7 @@
 
     <div class="card-body">
       <figure>
-        <img src="<?php echo $producto->getImage(); ?>" alt="<?php echo $producto->getAlt(); ?>">
+        <img src="img/zapatillas/<?php echo $producto->getImage(); ?>.webp" alt="<?php echo $producto->getAlt(); ?>">
       </figure>
       <h2 class="card-title"><?php echo $producto->getBrand(); ?> <?php echo $producto->getName(); ?></h2>
     </div>

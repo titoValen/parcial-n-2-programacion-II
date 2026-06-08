@@ -192,6 +192,7 @@
   transform: rotate(180deg);
   text-orientation: mixed;
   writing-mode: vertical-lr;
+  font-family: var(--font-title);
 }
 
 .card-title {
@@ -236,6 +237,7 @@
   text-orientation: mixed;
   writing-mode: vertical-lr;
   color: var(--color-white);
+  font-family: var(--font-title);
 }
 
 .card-btn:hover {
