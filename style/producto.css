@@ -135,5 +135,14 @@
 
 .filter-item:hover {
   background: var(--color-blue);
-  color: var(--color-white);
+  color: var(--color-black);
+}
+
+.filter-item-category.active {
+  background: var(--color-blue);
+  color: var(--color-black);
+}
+.filter-item-brand.active {
+  background: var(--color-blue);
+  color: var(--color-black);
 }
