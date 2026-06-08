@@ -13,9 +13,10 @@ require_once 'classes/Category.php';
   <div class="filter-group">
     <h3 class="filter-title">Categoría</h3>
     <ul class="filter-list filter-list-category">
+      <li class="filter-item filter-item-category active" data-value="todos">Todas</li>
       <?php foreach (Category::getAllCategories() as $category): ?>
-        <li class="filter-item filter-item-category">
-          <?= $category->getName() ?>
+        <li class="filter-item filter-item-category" data-value="<?= htmlspecialchars($category->getName()) ?>">
+          <?= htmlspecialchars($category->getName()) ?>
         </li>
       <?php endforeach; ?>
     </ul>
@@ -23,9 +24,10 @@ require_once 'classes/Category.php';
   <div class="filter-group">
     <h3 class="filter-title">Marca</h3>
     <ul class="filter-list filter-list-brand">
+      <li class="filter-item filter-item-brand active" data-value="todos">Todas</li>
       <?php foreach (Brand::getAllBrands() as $brand): ?>
-        <li class="filter-item filter-item-brand">
-          <?= $brand->getName() ?>
+        <li class="filter-item filter-item-brand" data-value="<?= htmlspecialchars($brand->getName()) ?>">
+          <?= htmlspecialchars($brand->getName()) ?>
         </li>
       <?php endforeach; ?>
     </ul>
