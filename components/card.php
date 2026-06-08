@@ -1,5 +1,7 @@
 <?php if (isset($producto)): ?>
-  <article class="card" id="producto-<?php echo $producto->getId(); ?>">
+  <article class="card" id="producto-<?php echo $producto->getId(); ?>"
+    data-category="<?php echo htmlspecialchars($producto->getCategory()); ?>"
+    data-brand="<?php echo htmlspecialchars($producto->getBrand()); ?>">
     <div class="card-header">
       <span class="card-price">$<?php echo number_format($producto->getPrice(), 0, ',', '.'); ?></span>
     </div>
@@ -8,7 +10,7 @@
       <figure>
         <img src="img/zapatillas/<?php echo $producto->getImage(); ?>.webp" alt="<?php echo $producto->getAlt(); ?>">
       </figure>
-      <h2 class="card-title"><?php echo $producto->getBrand(); ?> <?php echo $producto->getName(); ?></h2>
+      <h2 class="card-title"><?php echo $producto->getBrand(); ?>   <?php echo $producto->getName(); ?></h2>
     </div>
 
     <div class="card-footer">
