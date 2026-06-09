@@ -110,6 +110,7 @@
     background: var(--color-black);
     transform: translateX(100%);
     transition: transform 0.3s ease;
+    z-index: 1;
   }
 
   #checkbox:checked ~ .nav.responsive {
@@ -124,7 +125,6 @@
     gap: 3rem;
     position: absolute;
     inset: 0;
-    z-index: 999;
   }
 
   .header .nav.responsive ul li {
