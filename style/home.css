@@ -25,9 +25,16 @@
   align-items: center;
 }
 
+.home-presentacion-content {
+  color: var(--color-white);
+  padding: 1rem;
+  backdrop-filter: blur(10px);
+}
+
 .home-presentacion-title {
   font-family: var(--font-title);
   font-size: clamp(36px, 6vw, 56px);
+  text-align: center;
 }
 
 .home-presentacion-description {
@@ -52,7 +59,7 @@
   flex-wrap: wrap;
   justify-content: space-evenly;
   gap: 20px;
-  margin: 0 1rem;
+  margin: 1rem;
 }
 
 .home-article {
@@ -65,7 +72,9 @@
   border-radius: 1rem;
   padding: 1rem;
   min-width: 250px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .home-article:hover {
@@ -116,7 +125,9 @@
   color: var(--color-white);
   text-decoration: none;
   border-radius: 4px;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
   display: inline-block;
 }
 

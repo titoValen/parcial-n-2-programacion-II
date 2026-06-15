@@ -2,11 +2,13 @@
   <div class="background"></div>
 
   <div class="presentacion home-presentacion">
-    <h1 class="home-presentacion-title">Bienvenidos a la tienda</h1>
-    <p class="home-presentacion-description">
-      Explora nuestro <strong>catalogo de zapatillas</strong> para estilo urbano,
-      entrenamiento running, skate y basquet.
-    </p>
+    <div class="home-presentacion-content">
+      <h1 class="home-presentacion-title">Bienvenidos a la tienda</h1>
+      <p class="home-presentacion-description">
+        Explora nuestro <strong>catalogo de zapatillas</strong> para estilo urbano,
+        entrenamiento running, skate y basquet.
+      </p>
+    </div>
     <video autoplay muted playsinline loop preload="auto"></video>
   </div>
 
