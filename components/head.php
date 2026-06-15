@@ -14,7 +14,6 @@
   require_once 'config/created_views.php';
   if (
     isset($_GET['vista']) &&
-    !empty($_GET['vista']) &&
     in_array($_GET['vista'], $vistas_creadas)
   ): ?>
     <?php
@@ -45,5 +44,6 @@
     ?>
   <?php else: ?>
     <?php echo '<link rel="stylesheet" href="style/home.css">'; ?>
+    <?php echo '<script src="js/hero.js" defer type="module"></script>'; ?>
   <?php endif ?>
 </head>
