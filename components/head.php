@@ -35,11 +35,14 @@
       case 'detalle':
         echo '<link rel="stylesheet" href="style/detalle.css">';
         break;
-      case 'admin':
-        echo '<link rel="stylesheet" href="style/admin.css">';
+      case 'form_admin':
+        echo '<link rel="stylesheet" href="style/form_admin.css">';
         break;
       case 'res_form':
         echo '<link rel="stylesheet" href="style/res_form.css">';
+        break;
+      case 'admin':
+        echo '<link rel="stylesheet" href="style/admin.css">';
         break;
       default:
         echo 'Algo ocurrio mal al cargar la vista del css';
