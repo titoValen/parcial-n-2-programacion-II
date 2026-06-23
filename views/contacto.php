@@ -1,6 +1,6 @@
 <main class="contacto-main">
   <h1 class="contacto-title">Contacto</h1>
-  <form class="contacto-form" action="./process/form_data.php" method="POST">
+  <form class="contacto-form" action="./index.php?vista=res_form" method="POST">
     <label class="contacto-label" for="nombre">Nombre:</label>
     <input class="contacto-input" type="text" id="nombre" name="nombre" required>
 
