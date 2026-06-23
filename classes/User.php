@@ -62,7 +62,7 @@ class User
 
     // Luego comparar la contraseña.
     if (password_verify($pass, $storedPassword) || $pass === $storedPassword && $user['role'] === 'admin') {
-      return header("Location: ../admin/index.php");
+      return header("Location: index.php?vista=admin");
     }
 
     return false;
