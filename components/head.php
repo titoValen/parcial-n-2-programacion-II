@@ -38,6 +38,9 @@
       case 'admin':
         echo '<link rel="stylesheet" href="style/admin.css">';
         break;
+      case 'res_form':
+        echo '<link rel="stylesheet" href="style/res_form.css">';
+        break;
       default:
         echo 'Algo ocurrio mal al cargar la vista del css';
     }
