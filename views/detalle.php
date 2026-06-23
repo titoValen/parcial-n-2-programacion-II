@@ -1,18 +1,8 @@
 <?php
-require_once 'classes/Producto.php';
-require_once 'config/endpoint.php';
+require_once 'data/conex.php';
+require_once 'classes/Product.php';
 
-$productos = Producto::obtenerProduct($url);
-
-$id = isset($_GET['id']) ? (int)$_GET['id'] : null;
-$producto = null;
-
-foreach ($productos as $p) {
-  if ($p->getId() === $id) {
-    $producto = $p;
-    break;
-  }
-}
+$producto = Product::productById($_GET['id'] ?? null);
 ?>
 
 <main class="detalle-main">
@@ -25,7 +15,7 @@ foreach ($productos as $p) {
 
     <article class="detalle-card">
       <figure class="detalle-figure">
-        <img src="<?= $producto->getImage() ?>" alt="<?= $producto->getAlt() ?>">
+        <img src="img/zapatillas/<?= $producto->getImage() ?>.webp" alt="<?= $producto->getAlt() ?>">
       </figure>
 
       <div class="detalle-info">
