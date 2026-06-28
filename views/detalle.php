@@ -15,7 +15,7 @@ $producto = Product::productById($_GET['id'] ?? null);
 
     <article class="detalle-card">
       <figure class="detalle-figure">
-        <img src="img/zapatillas/<?= $producto->getImage() ?>.webp" alt="<?= $producto->getAlt() ?>">
+        <img src="<?= htmlspecialchars($producto->getImagePath(), ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($producto->getAlt(), ENT_QUOTES, 'UTF-8') ?>">
       </figure>
 
       <div class="detalle-info">
