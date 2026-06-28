@@ -43,6 +43,7 @@
         break;
       case 'admin':
         echo '<link rel="stylesheet" href="style/admin.css">';
+        echo '<script src="js/admin.js" defer type="module"></script>';
         break;
       default:
         echo 'Algo ocurrio mal al cargar la vista del css';
