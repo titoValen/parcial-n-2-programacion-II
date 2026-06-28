@@ -7,6 +7,8 @@ class Product
   private $price;
   private $image;
   private $alt;
+  private $id_category;
+  private $id_brand;
   private $category;
   private $stock;
   private $brand;
@@ -35,6 +37,14 @@ class Product
   {
     return $this->alt;
   }
+  public function getIdCategory()
+  {
+    return $this->id_category;
+  }
+  public function getIdBrand()
+  {
+    return $this->id_brand;
+  }
   public function getCategory()
   {
     return $this->category;
@@ -60,6 +70,8 @@ class Product
         p.price,
         p.image,
         p.alt,
+        p.id_category,
+        p.id_brand,
         p.stock,
         c.name AS category,
         b.name AS brand
@@ -87,6 +99,8 @@ class Product
         p.price,
         p.image,
         p.alt,
+        p.id_category,
+        p.id_brand,
         p.stock,
         c.name AS category,
         b.name AS brand
@@ -102,5 +116,66 @@ class Product
     $PDOStatement->execute();
 
     return $PDOStatement->fetch();
+  }
+
+  public static function createProduct($name, $description, $price, $image, $alt, $id_category, $id_brand, $stock)
+  {
+    $PDO = (new DB())->getDB();
+
+    $query = "
+      INSERT INTO product (name, description, price, image, alt, id_category, id_brand, stock)
+      VALUES (:name, :description, :price, :image, :alt, :id_category, :id_brand, :stock)
+    ";
+
+    $PDOStatement = $PDO->prepare($query);
+    $PDOStatement->bindParam(':name', $name, PDO::PARAM_STR);
+    $PDOStatement->bindParam(':description', $description, PDO::PARAM_STR);
+    $PDOStatement->bindParam(':price', $price, PDO::PARAM_STR);
+    $PDOStatement->bindParam(':image', $image, PDO::PARAM_STR);
+    $PDOStatement->bindParam(':alt', $alt, PDO::PARAM_STR);
+    $PDOStatement->bindParam(':id_category', $id_category, PDO::PARAM_INT);
+    $PDOStatement->bindParam(':id_brand', $id_brand, PDO::PARAM_INT);
+    $PDOStatement->bindParam(':stock', $stock, PDO::PARAM_INT);
+    $PDOStatement->execute();
+  }
+
+  public static function updateProduct($id, $name, $description, $price, $image, $alt, $id_category, $id_brand, $stock)
+  {
+    $PDO = (new DB())->getDB();
+
+    $query = "
+      UPDATE product
+      SET name = :name,
+          description = :description,
+          price = :price,
+          image = :image,
+          alt = :alt,
+          id_category = :id_category,
+          id_brand = :id_brand,
+          stock = :stock
+      WHERE id = :id
+    ";
+
+    $PDOStatement = $PDO->prepare($query);
+    $PDOStatement->bindParam(':id', $id, PDO::PARAM_INT);
+    $PDOStatement->bindParam(':name', $name, PDO::PARAM_STR);
+    $PDOStatement->bindParam(':description', $description, PDO::PARAM_STR);
+    $PDOStatement->bindParam(':price', $price, PDO::PARAM_STR);
+    $PDOStatement->bindParam(':image', $image, PDO::PARAM_STR);
+    $PDOStatement->bindParam(':alt', $alt, PDO::PARAM_STR);
+    $PDOStatement->bindParam(':id_category', $id_category, PDO::PARAM_INT);
+    $PDOStatement->bindParam(':id_brand', $id_brand, PDO::PARAM_INT);
+    $PDOStatement->bindParam(':stock', $stock, PDO::PARAM_INT);
+    $PDOStatement->execute();
+  }
+
+  public static function deleteProduct($id)
+  {
+    $PDO = (new DB())->getDB();
+
+    $query = "DELETE FROM product WHERE id = :id";
+    $PDOStatement = $PDO->prepare($query);
+    $PDOStatement->bindParam(':id', $id, PDO::PARAM_INT);
+    $PDOStatement->execute();
   }
 }
