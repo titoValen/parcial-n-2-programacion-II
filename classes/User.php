@@ -47,7 +47,7 @@ class User
   {
     $PDO = (new DB())->getDB();
     
-    $query = "SELECT id, password, role FROM user WHERE name = ?";
+    $query = "SELECT id, name, password, role FROM user WHERE name = ?";
     $stmt = $PDO->prepare($query);
     $stmt->execute([$name]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -61,8 +61,11 @@ class User
     $storedPassword = trim($user['password']);
 
     // Luego comparar la contraseña.
-    if (password_verify($pass, $storedPassword) || $pass === $storedPassword && $user['role'] === 'admin') {
-      return header("Location: index.php?vista=admin");
+    if (
+      $user['role'] === 'admin' &&
+      (password_verify($pass, $storedPassword) || $pass === $storedPassword)
+    ) {
+      return $user;
     }
 
     return false;
