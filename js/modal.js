@@ -29,6 +29,7 @@ const fields = {
 		description: dialogs.edit?.querySelector("#edit-description"),
 		price: dialogs.edit?.querySelector("#edit-price"),
 		image: dialogs.edit?.querySelector("#edit-image"),
+		currentImage: dialogs.edit?.querySelector("[data-current-image]"),
 		alt: dialogs.edit?.querySelector("#edit-alt"),
 		category: dialogs.edit?.querySelector("#edit-category"),
 		stock: dialogs.edit?.querySelector("#edit-stock"),
@@ -81,7 +82,11 @@ function fillEditForm(trigger) {
 	if (fields.edit.name) fields.edit.name.value = trigger.dataset.productName ?? "";
 	if (fields.edit.description) fields.edit.description.value = trigger.dataset.productDescription ?? "";
 	if (fields.edit.price) fields.edit.price.value = trigger.dataset.productPrice ?? "";
-	if (fields.edit.image) fields.edit.image.value = trigger.dataset.productImage ?? "";
+	if (fields.edit.currentImage) {
+		fields.edit.currentImage.textContent = trigger.dataset.productImage
+			? `Imagen actual: ${trigger.dataset.productImage}`
+			: "";
+	}
 	if (fields.edit.alt) fields.edit.alt.value = trigger.dataset.productAlt ?? "";
 	if (fields.edit.stock) fields.edit.stock.value = trigger.dataset.productStock ?? "";
 	if (fields.edit.category) fields.edit.category.value = trigger.dataset.productCategoryId ?? "";
