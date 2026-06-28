@@ -7,7 +7,7 @@ $marcas = Brand::getAllBrands();
 ?>
 
 <dialog id="product-create-modal" class="admin-modal" aria-labelledby="product-create-title">
-	<form class="admin-modal__form" action="process/product_add.php" method="get" data-modal-form="create">
+	<form class="admin-modal__form" action="process/product_add.php" method="post" enctype="multipart/form-data" data-modal-form="create">
 		<div class="admin-modal__header">
 			<h2 class="admin-modal__title" id="product-create-title">Agregar producto</h2>
 			<button class="admin-modal__close" type="button" data-modal-close aria-label="Cerrar modal">&times;</button>
@@ -31,7 +31,7 @@ $marcas = Brand::getAllBrands();
 
 			<label class="admin-modal__field" for="create-image">
 				<span>Imagen</span>
-				<input id="create-image" name="image" type="text" required>
+				<input id="create-image" name="image" type="file" accept="image/webp, image/jpeg, image/png" required>
 			</label>
 
 			<label class="admin-modal__field admin-modal__field--full" for="create-alt">
@@ -77,7 +77,7 @@ $marcas = Brand::getAllBrands();
 </dialog>
 
 <dialog id="product-edit-modal" class="admin-modal" aria-labelledby="product-edit-title">
-	<form class="admin-modal__form" action="process/product_update.php" method="get" data-modal-form="edit">
+	<form class="admin-modal__form" action="process/product_update.php" method="post" enctype="multipart/form-data" data-modal-form="edit">
 		<input id="edit-id" name="id" type="hidden">
 
 		<div class="admin-modal__header">
@@ -103,7 +103,8 @@ $marcas = Brand::getAllBrands();
 
 			<label class="admin-modal__field" for="edit-image">
 				<span>Imagen</span>
-				<input id="edit-image" name="image" type="text" required>
+				<input id="edit-image" name="image" type="file" accept="image/webp, image/jpeg, image/png">
+				<small class="admin-modal__hint" data-current-image>Subí una nueva imagen solo si querés cambiar la actual.</small>
 			</label>
 
 			<label class="admin-modal__field admin-modal__field--full" for="edit-alt">
