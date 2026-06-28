@@ -33,6 +33,23 @@ class Product
   {
     return $this->image;
   }
+
+  public function getImagePath()
+  {
+    $extensions = ['webp', 'jpg', 'jpeg', 'png'];
+
+    foreach ($extensions as $extension) {
+      $relativePath = 'img/zapatillas/' . $this->image . '.' . $extension;
+      $absolutePath = __DIR__ . '/../' . $relativePath;
+
+      if (file_exists($absolutePath)) {
+        return $relativePath;
+      }
+    }
+
+    return 'img/zapatillas/' . $this->image . '.webp';
+  }
+
   public function getAlt()
   {
     return $this->alt;
