@@ -1,3 +1,19 @@
+.admin-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 0 1rem;
+}
+
+.admin-actions__add {
+  border: none;
+  border-radius: 0.375rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background: var(--color-black);
+  color: var(--color-white);
+}
+
 .admin-container {
   display: flex;
   flex-wrap: wrap;
@@ -33,6 +49,7 @@
   border-radius: 0.375rem;
   border: none;
   font-size: 0.875rem;
+  cursor: pointer;
 }
 
 .admin-card__edit {
@@ -43,4 +60,139 @@
 .admin-card__delete {
   background-color: #f44336;
   color: var(--color-white);
+}
+
+.admin-modal {
+  width: min(92vw, 720px);
+  border: none;
+  border-radius: 1rem;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3);
+}
+
+.admin-modal::backdrop {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.admin-modal__form {
+  padding: 1.5rem;
+  background: var(--color-white);
+  display: grid;
+  gap: 1.25rem;
+}
+
+.admin-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.admin-modal__title {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.admin-modal__close {
+  width: 2.25rem;
+  height: 2.25rem;
+  border: none;
+  border-radius: 999px;
+  background: #f3f3f3;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.admin-modal__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.admin-modal__field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.admin-modal__field--full {
+  grid-column: 1 / -1;
+}
+
+.admin-modal__field span,
+.admin-modal__message {
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+}
+
+.admin-modal__field input,
+.admin-modal__field textarea,
+.admin-modal__field select {
+  width: 100%;
+  border: 1px solid #cfcfcf;
+  border-radius: 0.5rem;
+  padding: 0.8rem 0.9rem;
+  font-size: 1rem;
+  font-family: var(--font-body);
+  background: #fff;
+}
+
+.admin-modal__message {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.admin-modal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.admin-modal__button {
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.8rem 1rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.admin-modal__button--ghost {
+  background: #ececec;
+  color: var(--color-black);
+}
+
+.admin-modal__button--primary {
+  background: #111827;
+  color: var(--color-white);
+}
+
+.admin-modal__button--danger {
+  background: #f44336;
+  color: var(--color-white);
+}
+
+.admin-modal--delete {
+  width: min(92vw, 520px);
+}
+
+@media (max-width: 720px) {
+  .admin-modal__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-modal__actions {
+    justify-content: stretch;
+  }
+
+  .admin-modal__button,
+  .admin-actions__add {
+    width: 100%;
+  }
+
+  .admin-modal__header {
+    align-items: flex-start;
+  }
 }
