@@ -16,6 +16,14 @@
   gap: 1.5rem;
 }
 
+.products-empty-state {
+  margin-top: 2rem;
+  text-align: center;
+  font-family: var(--font-title);
+  font-size: 1.25rem;
+  color: var(--color-black);
+}
+
 .filter-nav {
   display: flex;
   flex-wrap: wrap;

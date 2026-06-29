@@ -15,4 +15,6 @@ $productos = Product::product();
       <?php require 'components/card.php'; ?>
     <?php endforeach; ?>
   </section>
+
+  <p class="products-empty-state" hidden>No se encontró nada con esos filtros.</p>
 </main>
