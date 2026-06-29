@@ -36,6 +36,10 @@ class Product
 
   public function getImagePath()
   {
+    if (empty($this->image)) {
+      return 'img/photo/zapatillas_correctas.webp';
+    }
+
     $extensions = ['webp', 'jpg', 'jpeg', 'png'];
 
     foreach ($extensions as $extension) {
@@ -47,7 +51,7 @@ class Product
       }
     }
 
-    return 'img/zapatillas/' . $this->image . '.webp';
+    return 'img/photo/zapatillas_correctas.webp';
   }
 
   public function getAlt()
@@ -137,23 +141,57 @@ class Product
 
   public static function createProduct($name, $description, $price, $image, $alt, $id_category, $id_brand, $stock)
   {
-    $PDO = (new DB())->getDB();
+    try {
+      $PDO = (new DB())->getDB();
 
-    $query = "
-      INSERT INTO product (name, description, price, image, alt, id_category, id_brand, stock)
-      VALUES (:name, :description, :price, :image, :alt, :id_category, :id_brand, :stock)
-    ";
+      $query = "
+        INSERT INTO product (name, description, price, image, alt, id_category, id_brand, stock)
+        VALUES (:name, :description, :price, :image, :alt, :id_category, :id_brand, :stock)
+      ";
 
-    $PDOStatement = $PDO->prepare($query);
-    $PDOStatement->bindParam(':name', $name, PDO::PARAM_STR);
-    $PDOStatement->bindParam(':description', $description, PDO::PARAM_STR);
-    $PDOStatement->bindParam(':price', $price, PDO::PARAM_STR);
-    $PDOStatement->bindParam(':image', $image, PDO::PARAM_STR);
-    $PDOStatement->bindParam(':alt', $alt, PDO::PARAM_STR);
-    $PDOStatement->bindParam(':id_category', $id_category, PDO::PARAM_INT);
-    $PDOStatement->bindParam(':id_brand', $id_brand, PDO::PARAM_INT);
-    $PDOStatement->bindParam(':stock', $stock, PDO::PARAM_INT);
-    $PDOStatement->execute();
+      $PDOStatement = $PDO->prepare($query);
+      $PDOStatement->bindValue(':name', $name, PDO::PARAM_STR);
+      $PDOStatement->bindValue(':description', $description, PDO::PARAM_STR);
+      $PDOStatement->bindValue(':price', $price, PDO::PARAM_STR);
+
+      if ($image === null || $image === '') {
+        $PDOStatement->bindValue(':image', null, PDO::PARAM_NULL);
+      } else {
+        $PDOStatement->bindValue(':image', $image, PDO::PARAM_STR);
+      }
+
+      $PDOStatement->bindValue(':alt', $alt, PDO::PARAM_STR);
+      $PDOStatement->bindValue(':id_category', $id_category, PDO::PARAM_INT);
+      $PDOStatement->bindValue(':id_brand', $id_brand, PDO::PARAM_INT);
+      $PDOStatement->bindValue(':stock', $stock, PDO::PARAM_INT);
+      $PDOStatement->execute();
+
+      return (int) $PDO->lastInsertId();
+    } catch (Exception $e) {
+      return 0;
+    }
+  }
+
+  public static function updateProductImage($id, $image)
+  {
+    try {
+      $PDO = (new DB())->getDB();
+
+      $query = "
+        UPDATE product
+        SET image = :image
+        WHERE id = :id
+      ";
+
+      $PDOStatement = $PDO->prepare($query);
+      $PDOStatement->bindValue(':id', $id, PDO::PARAM_INT);
+      $PDOStatement->bindValue(':image', $image, PDO::PARAM_STR);
+      $PDOStatement->execute();
+
+      return true;
+    } catch (Exception $e) {
+      return false;
+    }
   }
 
   public static function updateProduct($id, $name, $description, $price, $image, $alt, $id_category, $id_brand, $stock)
