@@ -4,15 +4,15 @@ require_once "classes/Product.php";
 
 $productos = Product::product();
 ?>
-<header>
-  <h1 class="admin-title">Panel de administración</h1>
-</header>
-
 <main class="admin-main">
-  <div class="admin-actions">
-    <button class="admin-actions__add" type="button" data-modal-open="create">Agregar producto</button>
+  <div class="admin-header">
+    <h1 class="admin-header__title">Panel de administración</h1>
+    <div class="admin-actions">
+      <button class="admin-actions__add" type="button" data-modal-open="create">Agregar producto</button>
+      <a class="admin-actions__logout" href="process/log_out.php">Cerrar sesión</a>
+    </div>
   </div>
-
+    
   <div class="admin-container">
     <?php foreach ($productos as $p): ?>
       <div class="admin-card">

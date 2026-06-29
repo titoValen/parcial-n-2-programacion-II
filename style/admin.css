@@ -1,7 +1,13 @@
+.admin-header {
+  display: grid;
+  place-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
 .admin-actions {
   display: flex;
-  justify-content: flex-end;
-  margin: 0 0 1rem;
+  gap: 1rem;
 }
 
 .admin-actions__add {
@@ -10,7 +16,18 @@
   padding: 0.75rem 1rem;
   font-size: 0.95rem;
   font-weight: 600;
-  background: var(--color-black);
+  background: #0a9913;
+  color: var(--color-white);
+  cursor: pointer;
+}
+
+.admin-actions__logout {
+  border: none;
+  border-radius: 0.375rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background: #f44336;
   color: var(--color-white);
 }
 
