@@ -6,6 +6,7 @@ $.addEventListener("DOMContentLoaded", () => {
   const itemsCategory = $.querySelectorAll(".filter-item-category");
   const itemsBrand = $.querySelectorAll(".filter-item-brand");
   const cards = $.querySelectorAll(".card");
+  const emptyState = $.querySelector(".products-empty-state");
 
   if (!toggleBtn || !panel) return;
 
@@ -37,6 +38,8 @@ $.addEventListener("DOMContentLoaded", () => {
 
   //Lógica de filtrado
   function aplicarFiltros() {
+    let cardsVisibles = 0;
+
     cards.forEach((card) => {
       const categoria = card.dataset.category;
       const marca = card.dataset.brand;
@@ -45,8 +48,18 @@ $.addEventListener("DOMContentLoaded", () => {
         filtroCategoria === "todos" || categoria === filtroCategoria;
       const coincideMarca = filtroBrand === "todos" || marca === filtroBrand;
 
-      card.style.display = coincideCategoria && coincideMarca ? "" : "none";
+      const cardVisible = coincideCategoria && coincideMarca;
+
+      card.style.display = cardVisible ? "" : "none";
+
+      if (cardVisible) {
+        cardsVisibles += 1;
+      }
     });
+
+    if (emptyState) {
+      emptyState.hidden = cardsVisibles !== 0;
+    }
   }
 
   //Selección de categoría
@@ -72,4 +85,6 @@ $.addEventListener("DOMContentLoaded", () => {
       aplicarFiltros();
     });
   });
+
+  aplicarFiltros();
 });
