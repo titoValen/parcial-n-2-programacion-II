@@ -12,7 +12,7 @@ $productos = Product::product();
       <a class="admin-actions__logout" href="process/log_out.php">Cerrar sesión</a>
     </div>
   </div>
-    
+
   <div class="admin-container">
     <?php foreach ($productos as $p): ?>
       <div class="admin-card">
