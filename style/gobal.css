@@ -6,13 +6,13 @@
 
 @font-face {
   font-family: "Rocket Brush";
-  src: url("../fonts/rocket_brush/Rocket_Brush.otf") format("opentype");
+  src: url("../fonts/rocket_brush/Rocket_Brush.woff2") format("woff2");
   font-display: swap;
 }
 
 @font-face {
   font-family: "Geist";
-  src: url("../fonts/geist/geist-latin-400-normal.ttf") format("truetype");
+  src: url("../fonts/geist/geist-latin-400-normal.woff2") format("woff2");
 }
 
 :root {
