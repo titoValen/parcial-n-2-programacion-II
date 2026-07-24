@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.3
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 02-06-2026 a las 20:44:13
+-- Servidor: localhost
+-- Tiempo de generación: 25-07-2026 a las 00:06:48
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -51,6 +51,50 @@ INSERT INTO `brand` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `buys`
+--
+
+CREATE TABLE `buys` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `date` datetime NOT NULL DEFAULT current_timestamp(),
+  `total` int(11) NOT NULL,
+  `state` varchar(20) NOT NULL DEFAULT 'pendiente'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `buys_detail`
+--
+
+CREATE TABLE `buys_detail` (
+  `id` int(11) NOT NULL,
+  `id_buys` int(11) NOT NULL,
+  `id_product` int(11) NOT NULL,
+  `id_size` int(11) NOT NULL,
+  `amount` int(11) NOT NULL DEFAULT 1,
+  `unit_price` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cart`
+--
+
+CREATE TABLE `cart` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_product` int(11) NOT NULL,
+  `id_size` int(11) NOT NULL,
+  `amount` int(11) NOT NULL DEFAULT 1,
+  `date_added` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `category`
 --
 
@@ -82,7 +126,6 @@ CREATE TABLE `product` (
   `price` int(11) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
   `alt` varchar(255) DEFAULT NULL,
-  `stock` int(11) NOT NULL,
   `id_category` int(11) NOT NULL,
   `id_brand` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -91,22 +134,46 @@ CREATE TABLE `product` (
 -- Volcado de datos para la tabla `product`
 --
 
-INSERT INTO `product` (`id`, `name`, `description`, `price`, `image`, `alt`, `stock`, `id_category`, `id_brand`) VALUES
-(1, 'Forum', 'Zapatilla urbana clasica con diseno retro y gran comodidad para uso diario.', 150000, 'adidas_forum_low_cl', 'Zapatilla Adidas Forum Low CL color blanco con franjas azules vista lateral.', 50, 1, 1),
-(2, 'Runfalcon', 'Zapatilla de running ligera para entrenamientos diarios y caminatas.', 75000, 'adidas_runfalcon_5', 'Zapatilla Adidas Runfalcon 5 negra con detalles blancos y suela degradada.', 37, 2, 1),
-(3, 'Ultraboost', 'Modelo running con amortiguacion responsiva y ajuste comodo.', 175000, 'adidas_ultraboost_light', 'Zapatilla Adidas Ultraboost Light blanca con detalles verdes y suela gruesa.', 20, 2, 1),
-(4, 'Yeezy', 'Zapatilla urbana premium con estilo moderno y silueta distintiva.', 200000, 'adidas_yeezy', 'Zapatilla Adidas Yeezy color crema con diseno tejido y suela translcida.', 12, 1, 1),
-(5, 'Gel Nimbus', 'Zapatilla de running con foco en confort para largas distancias.', 300000, 'asics_gel_nimbus_27', 'Zapatilla Asics Gel Nimbus 27 gris con lineas claras y suela alta.', 58, 2, 2),
-(6, 'Chuck Taylor', 'Clasica silueta de cana alta con plataforma y look casual.', 130000, 'converse_chuck_taylor_all_star_lift_hi_sintético', 'Zapatilla Converse Chuck Taylor All Star Lift Hi negra de cana alta.', 10, 1, 3),
-(7, 'Fresh Foam', 'Calzado de running con amortiguacion suave para uso intensivo.', 150000, 'fresh_foam_x_1080_v_13', 'Zapatilla New Balance Fresh Foam X 1080 v13 azul con suela blanca.', 16, 2, 4),
-(8, 'Air Force 1', 'Icono urbano de Nike con diseno limpio y atemporal.', 180000, 'nike_air_force_1_07', 'Zapatilla Nike Air Force 1 \'07 blanca clasica vista lateral.', 68, 2, 5),
-(9, 'Air Jordan', 'Modelo de basquet inspirado en estilo retro y alto rendimiento.', 240000, 'nike_air_jordan', 'Zapatilla Nike Air Jordan de cana alta en negro, rojo y blanco.', 68, 3, 5),
-(10, 'Dunk Low', 'Sneaker urbana clasica, ideal para outfits casuales diarios.', 185000, 'nike_dunk_low_retro', 'Zapatilla Nike Dunk Low Retro en blanco y negro estilo urbano.', 78, 1, 5),
-(11, 'Pegasus', 'Zapatilla de running versatil para entrenamientos y fondo.', 100000, 'nike_air_zoom_pegasus_37', 'Zapatilla Nike Air Zoom Pegasus 37 negra con suela blanca.', 82, 2, 5),
-(12, 'Puma Smash', 'Diseño urbano minimalista con inspiracion en tenis clasico.', 45000, 'puma_smash_v2', 'Zapatilla Puma Smash v2 gris con suela blanca y perfil bajo.', 100, 1, 6),
-(13, 'Velocity Nitro', 'Modelo de running con buena respuesta y traccion estable.', 110000, 'puma_velocity_nitro_3', 'Zapatilla Puma Velocity Nitro 3 blanca con detalle lateral multicolor.', 48, 2, 6),
-(14, 'Old Skool', 'Clasico skate urbano con capellada resistente y suela waffle.', 160000, 'vans_old_skool_negras', 'Zapatilla Vans Old Skool negra con franja blanca y suela blanca.', 8, 4, 7),
-(15, 'Floatride', 'Zapatilla de running liviana para entrenamientos regulares.', 150000, 'rbk_floatride_energy_6', 'Zapatilla Reebok Floatride Energy 6 turquesa con suela blanca.', 4, 2, 8);
+INSERT INTO `product` (`id`, `name`, `description`, `price`, `image`, `alt`, `id_category`, `id_brand`) VALUES
+(1, 'Forum', 'Zapatilla urbana clasica con diseno retro y gran comodidad para uso diario.', 150000, 'adidas_forum_low_cl', 'Zapatilla Adidas Forum Low CL color blanco con franjas azules vista lateral.', 1, 1),
+(2, 'Runfalcon', 'Zapatilla de running ligera para entrenamientos diarios y caminatas.', 75000, 'adidas_runfalcon_5', 'Zapatilla Adidas Runfalcon 5 negra con detalles blancos y suela degradada.', 2, 1),
+(3, 'Ultraboost', 'Modelo running con amortiguacion responsiva y ajuste comodo.', 175000, 'adidas_ultraboost_light', 'Zapatilla Adidas Ultraboost Light blanca con detalles verdes y suela gruesa.', 2, 1),
+(4, 'Yeezy', 'Zapatilla urbana premium con estilo moderno y silueta distintiva.', 200000, 'adidas_yeezy', 'Zapatilla Adidas Yeezy color crema con diseno tejido y suela translcida.', 1, 1),
+(5, 'Gel Nimbus', 'Zapatilla de running con foco en confort para largas distancias.', 300000, 'asics_gel_nimbus_27', 'Zapatilla Asics Gel Nimbus 27 gris con lineas claras y suela alta.', 2, 2),
+(6, 'Chuck Taylor', 'Clasica silueta de cana alta con plataforma y look casual.', 130000, 'converse_chuck_taylor_all_star_lift_hi_sintético', 'Zapatilla Converse Chuck Taylor All Star Lift Hi negra de cana alta.', 1, 3),
+(7, 'Fresh Foam', 'Calzado de running con amortiguacion suave para uso intensivo.', 150000, 'fresh_foam_x_1080_v_13', 'Zapatilla New Balance Fresh Foam X 1080 v13 azul con suela blanca.', 2, 4),
+(8, 'Air Force 1', 'Icono urbano de Nike con diseno limpio y atemporal.', 180000, 'nike_air_force_1_07', 'Zapatilla Nike Air Force 1 \'07 blanca clasica vista lateral.', 2, 5),
+(9, 'Air Jordan', 'Modelo de basquet inspirado en estilo retro y alto rendimiento.', 240000, 'nike_air_jordan', 'Zapatilla Nike Air Jordan de cana alta en negro, rojo y blanco.', 3, 5),
+(10, 'Dunk Low', 'Sneaker urbana clasica, ideal para outfits casuales diarios.', 185000, 'nike_dunk_low_retro', 'Zapatilla Nike Dunk Low Retro en blanco y negro estilo urbano.', 1, 5),
+(11, 'Pegasus', 'Zapatilla de running versatil para entrenamientos y fondo.', 100000, 'nike_air_zoom_pegasus_37', 'Zapatilla Nike Air Zoom Pegasus 37 negra con suela blanca.', 2, 5),
+(12, 'Puma Smash', 'Diseño urbano minimalista con inspiracion en tenis clasico.', 45000, 'puma_smash_v2', 'Zapatilla Puma Smash v2 gris con suela blanca y perfil bajo.', 1, 6),
+(13, 'Velocity Nitro', 'Modelo de running con buena respuesta y traccion estable.', 110000, 'puma_velocity_nitro_3', 'Zapatilla Puma Velocity Nitro 3 blanca con detalle lateral multicolor.', 2, 6),
+(14, 'Old Skool', 'Clasico skate urbano con capellada resistente y suela waffle.', 160000, 'vans_old_skool_negras', 'Zapatilla Vans Old Skool negra con franja blanca y suela blanca.', 4, 7),
+(15, 'Floatride', 'Zapatilla de running liviana para entrenamientos regulares.', 150000, 'rbk_floatride_energy_6', 'Zapatilla Reebok Floatride Energy 6 turquesa con suela blanca.', 2, 8);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `product_size`
+--
+
+CREATE TABLE `product_size` (
+  `id` int(11) NOT NULL,
+  `id_product` int(11) NOT NULL,
+  `id_size` int(11) NOT NULL,
+  `stock` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `size`
+--
+
+CREATE TABLE `size` (
+  `id` int(11) NOT NULL,
+  `size` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -117,6 +184,7 @@ INSERT INTO `product` (`id`, `name`, `description`, `price`, `image`, `alt`, `st
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `name` varchar(150) NOT NULL,
+  `email` varchar(150) NOT NULL,
   `password` varchar(255) NOT NULL,
   `role` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -125,8 +193,8 @@ CREATE TABLE `user` (
 -- Volcado de datos para la tabla `user`
 --
 
-INSERT INTO `user` (`id`, `name`, `password`, `role`) VALUES
-(1, 'valen', 'Contraseña', 'admin');
+INSERT INTO `user` (`id`, `name`, `email`, `password`, `role`) VALUES
+(1, 'valen', '', 'Contraseña', 'admin');
 
 --
 -- Índices para tablas volcadas
@@ -137,6 +205,31 @@ INSERT INTO `user` (`id`, `name`, `password`, `role`) VALUES
 --
 ALTER TABLE `brand`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `buys`
+--
+ALTER TABLE `buys`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_user` (`id_user`);
+
+--
+-- Indices de la tabla `buys_detail`
+--
+ALTER TABLE `buys_detail`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_buys` (`id_buys`),
+  ADD KEY `id_product` (`id_product`),
+  ADD KEY `id_size` (`id_size`);
+
+--
+-- Indices de la tabla `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `single_item` (`id_user`,`id_product`,`id_size`),
+  ADD KEY `id_product` (`id_product`),
+  ADD KEY `id_size` (`id_size`);
 
 --
 -- Indices de la tabla `category`
@@ -153,10 +246,25 @@ ALTER TABLE `product`
   ADD KEY `fk_product_category` (`id_category`);
 
 --
+-- Indices de la tabla `product_size`
+--
+ALTER TABLE `product_size`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_product` (`id_product`),
+  ADD KEY `id_size` (`id_size`);
+
+--
+-- Indices de la tabla `size`
+--
+ALTER TABLE `size`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -167,6 +275,24 @@ ALTER TABLE `user`
 --
 ALTER TABLE `brand`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de la tabla `buys`
+--
+ALTER TABLE `buys`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `buys_detail`
+--
+ALTER TABLE `buys_detail`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `category`
@@ -181,6 +307,18 @@ ALTER TABLE `product`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
+-- AUTO_INCREMENT de la tabla `product_size`
+--
+ALTER TABLE `product_size`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `size`
+--
+ALTER TABLE `size`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
@@ -191,11 +329,40 @@ ALTER TABLE `user`
 --
 
 --
+-- Filtros para la tabla `buys`
+--
+ALTER TABLE `buys`
+  ADD CONSTRAINT `buys_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
+
+--
+-- Filtros para la tabla `buys_detail`
+--
+ALTER TABLE `buys_detail`
+  ADD CONSTRAINT `buys_detail_ibfk_1` FOREIGN KEY (`id_buys`) REFERENCES `buys` (`id`),
+  ADD CONSTRAINT `buys_detail_ibfk_2` FOREIGN KEY (`id_product`) REFERENCES `product` (`id`),
+  ADD CONSTRAINT `buys_detail_ibfk_3` FOREIGN KEY (`id_size`) REFERENCES `size` (`id`);
+
+--
+-- Filtros para la tabla `cart`
+--
+ALTER TABLE `cart`
+  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`id_product`) REFERENCES `product` (`id`),
+  ADD CONSTRAINT `cart_ibfk_3` FOREIGN KEY (`id_size`) REFERENCES `size` (`id`);
+
+--
 -- Filtros para la tabla `product`
 --
 ALTER TABLE `product`
   ADD CONSTRAINT `fk_product_brand` FOREIGN KEY (`id_brand`) REFERENCES `brand` (`id`),
   ADD CONSTRAINT `fk_product_category` FOREIGN KEY (`id_category`) REFERENCES `category` (`id`);
+
+--
+-- Filtros para la tabla `product_size`
+--
+ALTER TABLE `product_size`
+  ADD CONSTRAINT `product_size_ibfk_1` FOREIGN KEY (`id_product`) REFERENCES `product` (`id`),
+  ADD CONSTRAINT `product_size_ibfk_2` FOREIGN KEY (`id_size`) REFERENCES `size` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
