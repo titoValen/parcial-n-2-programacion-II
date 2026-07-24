@@ -10,7 +10,6 @@ class Product
   private $id_category;
   private $id_brand;
   private $category;
-  private $stock;
   private $brand;
 
   public function getId()
@@ -70,10 +69,6 @@ class Product
   {
     return $this->category;
   }
-  public function getStock()
-  {
-    return $this->stock;
-  }
   public function getBrand()
   {
     return $this->brand;
@@ -93,7 +88,6 @@ class Product
         p.alt,
         p.id_category,
         p.id_brand,
-        p.stock,
         c.name AS category,
         b.name AS brand
       FROM product p
@@ -122,7 +116,6 @@ class Product
         p.alt,
         p.id_category,
         p.id_brand,
-        p.stock,
         c.name AS category,
         b.name AS brand
       FROM product p
