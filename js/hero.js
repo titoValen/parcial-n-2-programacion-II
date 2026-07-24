@@ -1,7 +1,7 @@
 import { $ } from "./elements.js";
 
 const videoPath = "video/";
-const videos = ["video_1.mp4", "video_2.mp4", "video_3.mp4", "video_4.mp4"];
+const videos = ["video_1.webm", "video_2.webm", "video_3.webm", "video_4.webm"];
 const element_video = $.querySelector(".home-presentacion video");
 
 function changeVideo() {
