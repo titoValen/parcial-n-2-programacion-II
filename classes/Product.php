@@ -226,4 +226,84 @@ class Product
     $PDOStatement->bindParam(':id', $id, PDO::PARAM_INT);
     $PDOStatement->execute();
   }
+
+  public static function relatedProducts($id_actual, $id_category, $id_brand, $limit = 3)
+  {
+    $PDO = (new DB())->getDB();
+
+    // 1. Buscar por misma categoría o marca, excluyendo el producto actual
+    $query = "
+        SELECT
+            p.id, p.name, p.description, p.price, p.image, p.alt,
+            p.id_category, p.id_brand,
+            c.name AS category, b.name AS brand
+        FROM product p
+        INNER JOIN category c ON p.id_category = c.id
+        INNER JOIN brand    b ON p.id_brand    = b.id
+        WHERE p.id != :id_actual
+          AND (p.id_category = :id_category OR p.id_brand = :id_brand)
+        ORDER BY RAND()
+        LIMIT :limit
+    ";
+
+    $stmt = $PDO->prepare($query);
+    $stmt->bindParam(':id_actual', $id_actual, PDO::PARAM_INT);
+    $stmt->bindParam(':id_category', $id_category, PDO::PARAM_INT);
+    $stmt->bindParam(':id_brand', $id_brand, PDO::PARAM_INT);
+    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+    $stmt->setFetchMode(PDO::FETCH_CLASS, self::class);
+    $stmt->execute();
+    $productos = $stmt->fetchAll();
+
+    // 2. Si no alcanzó el límite, completar con random (excluyendo actual + ya traídos)
+    $faltan = $limit - count($productos);
+    if ($faltan > 0) {
+      $idsExcluir = array_column($productos, 'id');
+      $idsExcluir[] = $id_actual;
+
+      $productos = array_merge(
+        $productos,
+        self::randomProducts($faltan, $idsExcluir)
+      );
+    }
+
+    return $productos;
+  }
+
+  public static function randomProducts($limit = 3, $idsExcluir = [])
+  {
+    $PDO = (new DB())->getDB();
+
+    // Genero placeholders dinámicos para el NOT IN (:id0, :id1, ...)
+    $placeholders = [];
+    foreach ($idsExcluir as $i => $id) {
+      $placeholders[] = ":ex{$i}";
+    }
+    $whereExcluir = count($placeholders) > 0
+      ? "WHERE p.id NOT IN (" . implode(',', $placeholders) . ")"
+      : "";
+
+    $query = "
+        SELECT
+            p.id, p.name, p.description, p.price, p.image, p.alt,
+            p.id_category, p.id_brand,
+            c.name AS category, b.name AS brand
+        FROM product p
+        INNER JOIN category c ON p.id_category = c.id
+        INNER JOIN brand    b ON p.id_brand    = b.id
+        {$whereExcluir}
+        ORDER BY RAND()
+        LIMIT :limit
+    ";
+
+    $stmt = $PDO->prepare($query);
+    foreach ($idsExcluir as $i => $id) {
+      $stmt->bindValue(":ex{$i}", $id, PDO::PARAM_INT);
+    }
+    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+    $stmt->setFetchMode(PDO::FETCH_CLASS, self::class);
+    $stmt->execute();
+
+    return $stmt->fetchAll();
+  }
 }
