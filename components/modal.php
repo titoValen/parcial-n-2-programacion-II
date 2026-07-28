@@ -51,11 +51,6 @@ $marcas = Brand::getAllBrands();
 				</select>
 			</label>
 
-			<label class="admin-modal__field" for="create-stock">
-				<span>Stock disponible</span>
-				<input id="create-stock" name="stock" type="number" min="0" step="1" required>
-			</label>
-
 			<label class="admin-modal__field" for="create-brand">
 				<span>Marca</span>
 				<select id="create-brand" name="id_brand" required>
@@ -122,11 +117,6 @@ $marcas = Brand::getAllBrands();
 						</option>
 					<?php endforeach; ?>
 				</select>
-			</label>
-
-			<label class="admin-modal__field" for="edit-stock">
-				<span>Stock disponible</span>
-				<input id="edit-stock" name="stock" type="number" min="0" step="1" required>
 			</label>
 
 			<label class="admin-modal__field" for="edit-brand">
