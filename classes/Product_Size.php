@@ -5,7 +5,7 @@ class Product_Size
   private $id_product;
   private $id_size;
   private $stock;
-  private $size;
+  private $size; // viene del JOIN con la tabla `size`
 
   public function getId()
   {
@@ -78,6 +78,26 @@ class Product_Size
     $resultado = $PDOStatement->fetch(PDO::FETCH_ASSOC);
 
     return $resultado ? (int) $resultado['stock'] : 0;
+  }
+
+  // Suma el stock de todos los talles de un producto (para mostrar un total en el listado admin)
+  public static function getTotalStockByProduct($id_product)
+  {
+    $PDO = (new DB())->getDB();
+
+    $query = "
+      SELECT COALESCE(SUM(stock), 0) AS total
+      FROM product_size
+      WHERE id_product = :id_product
+    ";
+
+    $PDOStatement = $PDO->prepare($query);
+    $PDOStatement->bindParam(':id_product', $id_product, PDO::PARAM_INT);
+    $PDOStatement->execute();
+
+    $resultado = $PDOStatement->fetch(PDO::FETCH_ASSOC);
+
+    return (int) $resultado['total'];
   }
 
   // Descuenta stock al confirmar una compra (usar dentro de una transacción)
