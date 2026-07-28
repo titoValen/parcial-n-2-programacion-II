@@ -80,16 +80,9 @@ class Product
 
     $query = "
       SELECT
-        p.id,
-        p.name,
-        p.description,
-        p.price,
-        p.image,
-        p.alt,
-        p.id_category,
-        p.id_brand,
-        c.name AS category,
-        b.name AS brand
+        p.id, p.name, p.description, p.price, p.image, p.alt,
+        p.id_category, p.id_brand,
+        c.name AS category, b.name AS brand
       FROM product p
       INNER JOIN category c ON p.id_category = c.id
       INNER JOIN brand    b ON p.id_brand    = b.id
@@ -108,16 +101,9 @@ class Product
 
     $query = "
       SELECT
-        p.id,
-        p.name,
-        p.description,
-        p.price,
-        p.image,
-        p.alt,
-        p.id_category,
-        p.id_brand,
-        c.name AS category,
-        b.name AS brand
+        p.id, p.name, p.description, p.price, p.image, p.alt,
+        p.id_category, p.id_brand,
+        c.name AS category, b.name AS brand
       FROM product p
       INNER JOIN category c ON p.id_category = c.id
       INNER JOIN brand    b ON p.id_brand    = b.id
@@ -132,14 +118,14 @@ class Product
     return $PDOStatement->fetch();
   }
 
-  public static function createProduct($name, $description, $price, $image, $alt, $id_category, $id_brand, $stock)
+  public static function createProduct($name, $description, $price, $image, $alt, $id_category, $id_brand)
   {
     try {
       $PDO = (new DB())->getDB();
 
       $query = "
-        INSERT INTO product (name, description, price, image, alt, id_category, id_brand, stock)
-        VALUES (:name, :description, :price, :image, :alt, :id_category, :id_brand, :stock)
+        INSERT INTO product (name, description, price, image, alt, id_category, id_brand)
+        VALUES (:name, :description, :price, :image, :alt, :id_category, :id_brand)
       ";
 
       $PDOStatement = $PDO->prepare($query);
@@ -156,7 +142,6 @@ class Product
       $PDOStatement->bindValue(':alt', $alt, PDO::PARAM_STR);
       $PDOStatement->bindValue(':id_category', $id_category, PDO::PARAM_INT);
       $PDOStatement->bindValue(':id_brand', $id_brand, PDO::PARAM_INT);
-      $PDOStatement->bindValue(':stock', $stock, PDO::PARAM_INT);
       $PDOStatement->execute();
 
       return (int) $PDO->lastInsertId();
@@ -170,11 +155,7 @@ class Product
     try {
       $PDO = (new DB())->getDB();
 
-      $query = "
-        UPDATE product
-        SET image = :image
-        WHERE id = :id
-      ";
+      $query = "UPDATE product SET image = :image WHERE id = :id";
 
       $PDOStatement = $PDO->prepare($query);
       $PDOStatement->bindValue(':id', $id, PDO::PARAM_INT);
@@ -187,7 +168,7 @@ class Product
     }
   }
 
-  public static function updateProduct($id, $name, $description, $price, $image, $alt, $id_category, $id_brand, $stock)
+  public static function updateProduct($id, $name, $description, $price, $image, $alt, $id_category, $id_brand)
   {
     $PDO = (new DB())->getDB();
 
@@ -199,8 +180,7 @@ class Product
           image = :image,
           alt = :alt,
           id_category = :id_category,
-          id_brand = :id_brand,
-          stock = :stock
+          id_brand = :id_brand
       WHERE id = :id
     ";
 
@@ -213,13 +193,17 @@ class Product
     $PDOStatement->bindParam(':alt', $alt, PDO::PARAM_STR);
     $PDOStatement->bindParam(':id_category', $id_category, PDO::PARAM_INT);
     $PDOStatement->bindParam(':id_brand', $id_brand, PDO::PARAM_INT);
-    $PDOStatement->bindParam(':stock', $stock, PDO::PARAM_INT);
     $PDOStatement->execute();
   }
 
   public static function deleteProduct($id)
   {
     $PDO = (new DB())->getDB();
+
+    // Primero borramos las filas relacionadas de product_size (la FK no tiene ON DELETE CASCADE)
+    $deleteSizes = $PDO->prepare("DELETE FROM product_size WHERE id_product = :id");
+    $deleteSizes->bindParam(':id', $id, PDO::PARAM_INT);
+    $deleteSizes->execute();
 
     $query = "DELETE FROM product WHERE id = :id";
     $PDOStatement = $PDO->prepare($query);
@@ -231,7 +215,6 @@ class Product
   {
     $PDO = (new DB())->getDB();
 
-    // 1. Buscar por misma categoría o marca, excluyendo el producto actual
     $query = "
         SELECT
             p.id, p.name, p.description, p.price, p.image, p.alt,
@@ -255,7 +238,6 @@ class Product
     $stmt->execute();
     $productos = $stmt->fetchAll();
 
-    // 2. Si no alcanzó el límite, completar con random (excluyendo actual + ya traídos)
     $faltan = $limit - count($productos);
     if ($faltan > 0) {
       $idsExcluir = array_column($productos, 'id');
@@ -274,7 +256,6 @@ class Product
   {
     $PDO = (new DB())->getDB();
 
-    // Genero placeholders dinámicos para el NOT IN (:id0, :id1, ...)
     $placeholders = [];
     foreach ($idsExcluir as $i => $id) {
       $placeholders[] = ":ex{$i}";
