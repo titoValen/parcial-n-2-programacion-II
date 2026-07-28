@@ -1,6 +1,7 @@
 <?php
 require_once "data/conex.php";
 require_once "classes/Product.php";
+require_once "classes/Product_Size.php";
 
 $productos = Product::product();
 ?>
@@ -15,6 +16,7 @@ $productos = Product::product();
 
   <div class="admin-container">
     <?php foreach ($productos as $p): ?>
+      <?php $stockTotal = Product_Size::getTotalStockByProduct($p->getId()); ?>
       <div class="admin-card">
         <figure class="admin-card__image-container">
           <img class="admin-card__image" src="<?= htmlspecialchars($p->getImagePath(), ENT_QUOTES, 'UTF-8') ?>"
@@ -25,7 +27,10 @@ $productos = Product::product();
           <p class="admin-card__description"><?= htmlspecialchars($p->getDescription(), ENT_QUOTES, 'UTF-8') ?></p>
           <p class="admin-card__price">Precio: $<?= htmlspecialchars($p->getPrice(), ENT_QUOTES, 'UTF-8') ?></p>
           <p class="admin-card__category">Categoría: <?= htmlspecialchars($p->getCategory(), ENT_QUOTES, 'UTF-8') ?></p>
-          <p class="admin-card__stock">Stock: <?= htmlspecialchars($p->getStock(), ENT_QUOTES, 'UTF-8') ?></p>
+          <p class="admin-card__stock">
+            Stock total: <?= $stockTotal ?>
+            <?php if ($stockTotal === 0): ?><span class="admin-card__stock-warning">(sin talles cargados o agotado)</span><?php endif; ?>
+          </p>
           <p class="admin-card__brand">Marca: <?= htmlspecialchars($p->getBrand(), ENT_QUOTES, 'UTF-8') ?></p>
         </div>
         <div class="admin-card__actions">
@@ -40,16 +45,16 @@ $productos = Product::product();
             data-product-image="<?= htmlspecialchars($p->getImage(), ENT_QUOTES, 'UTF-8') ?>"
             data-product-alt="<?= htmlspecialchars($p->getAlt(), ENT_QUOTES, 'UTF-8') ?>"
             data-product-category-id="<?= htmlspecialchars($p->getIdCategory(), ENT_QUOTES, 'UTF-8') ?>"
-            data-product-stock="<?= htmlspecialchars($p->getStock(), ENT_QUOTES, 'UTF-8') ?>"
-            data-product-brand-id="<?= htmlspecialchars($p->getIdBrand(), ENT_QUOTES, 'UTF-8') ?>"
-          >Editar</button>
+            data-product-brand-id="<?= htmlspecialchars($p->getIdBrand(), ENT_QUOTES, 'UTF-8') ?>">Editar</button>
+          <a
+            class="admin-card__sizes"
+            href="?vista=admin_talles&id=<?= htmlspecialchars($p->getId(), ENT_QUOTES, 'UTF-8') ?>">Gestionar talles</a>
           <button
             class="admin-card__delete"
             type="button"
             data-modal-open="delete"
             data-product-id="<?= htmlspecialchars($p->getId(), ENT_QUOTES, 'UTF-8') ?>"
-            data-product-name="<?= htmlspecialchars($p->getName(), ENT_QUOTES, 'UTF-8') ?>"
-          >Eliminar</button>
+            data-product-name="<?= htmlspecialchars($p->getName(), ENT_QUOTES, 'UTF-8') ?>">Eliminar</button>
         </div>
       </div>
     <?php endforeach; ?>
