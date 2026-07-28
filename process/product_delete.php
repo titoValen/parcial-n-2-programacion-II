@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../middleware/admin_guard.php';
 require_once '../data/conex.php';
 require_once '../classes/Product.php';
 

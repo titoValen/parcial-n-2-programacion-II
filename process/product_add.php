@@ -1,6 +1,5 @@
 <?php
-session_start();
-
+require_once __DIR__ . '/../middleware/admin_guard.php';
 require_once __DIR__ . '/../data/conex.php';
 require_once __DIR__ . '/../classes/Product.php';
 
@@ -10,11 +9,9 @@ $price = $_POST['price'] ?? '';
 $alt = $_POST['alt'] ?? '';
 $id_category = $_POST['id_category'] ?? '';
 $id_brand = $_POST['id_brand'] ?? '';
-$stock = $_POST['stock'] ?? '';
 
 $uploadedImage = $_FILES['image'] ?? null;
 $allowedExtensions = ['webp', 'jpg', 'jpeg', 'png'];
-$imageName = null;
 $targetDirectory = __DIR__ . '/../img/zapatillas/';
 $notice = '';
 
@@ -24,10 +21,11 @@ if (
 	$price !== '' &&
 	$alt !== '' &&
 	$id_category !== '' &&
-	$id_brand !== '' &&
-	$stock !== ''
+	$id_brand !== ''
 ) {
-	$productId = Product::createProduct($name, $description, $price, null, $alt, $id_category, $id_brand, $stock);
+	// stock ya no se maneja acá: el producto nace sin talles/stock cargados,
+	// se agregan después desde la vista de gestión de talles
+	$productId = Product::createProduct($name, $description, $price, null, $alt, $id_category, $id_brand);
 
 	if ($productId > 0) {
 		if ($uploadedImage && $uploadedImage['error'] === UPLOAD_ERR_OK) {
