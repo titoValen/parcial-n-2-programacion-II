@@ -16,7 +16,10 @@ $productos = Product::product();
 
   <div class="admin-container">
     <?php foreach ($productos as $p): ?>
-      <?php $stockTotal = Product_Size::getTotalStockByProduct($p->getId()); ?>
+      <?php
+      $sizes = Product_Size::getAllSizesWithStock($p->getId());
+      $stockTotal = array_sum(array_column($sizes, 'stock'));
+      ?>
       <div class="admin-card">
         <figure class="admin-card__image-container">
           <img class="admin-card__image" src="<?= htmlspecialchars($p->getImagePath(), ENT_QUOTES, 'UTF-8') ?>"
@@ -46,9 +49,13 @@ $productos = Product::product();
             data-product-alt="<?= htmlspecialchars($p->getAlt(), ENT_QUOTES, 'UTF-8') ?>"
             data-product-category-id="<?= htmlspecialchars($p->getIdCategory(), ENT_QUOTES, 'UTF-8') ?>"
             data-product-brand-id="<?= htmlspecialchars($p->getIdBrand(), ENT_QUOTES, 'UTF-8') ?>">Editar</button>
-          <a
+          <button
             class="admin-card__sizes"
-            href="?vista=admin_talles&id=<?= htmlspecialchars($p->getId(), ENT_QUOTES, 'UTF-8') ?>">Gestionar talles</a>
+            type="button"
+            data-modal-open="sizes"
+            data-product-id="<?= htmlspecialchars($p->getId(), ENT_QUOTES, 'UTF-8') ?>"
+            data-product-name="<?= htmlspecialchars($p->getName(), ENT_QUOTES, 'UTF-8') ?>"
+            data-product-sizes="<?= htmlspecialchars(json_encode($sizes), ENT_QUOTES, 'UTF-8') ?>">Gestionar talles</button>
           <button
             class="admin-card__delete"
             type="button"
