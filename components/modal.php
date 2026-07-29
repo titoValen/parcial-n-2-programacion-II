@@ -158,3 +158,25 @@ $marcas = Brand::getAllBrands();
 		</div>
 	</form>
 </dialog>
+
+<dialog id="product-sizes-modal" class="admin-modal" aria-labelledby="product-sizes-title">
+	<form class="admin-modal__form" action="process/product_size_update.php" method="post" data-modal-form="sizes">
+		<input id="sizes-id-product" name="id_product" type="hidden">
+
+		<div class="admin-modal__header">
+			<h2 class="admin-modal__title" id="product-sizes-title">Gestionar talles — <span data-sizes-product-name></span></h2>
+			<button class="admin-modal__close" type="button" data-modal-close aria-label="Cerrar modal">&times;</button>
+		</div>
+
+		<p class="admin-modal__message">Cargá el stock disponible para cada talle. Dejalo en 0 si no hay stock.</p>
+
+		<div class="admin-modal__grid" data-sizes-container>
+			<!-- Los inputs de cada talle se generan por JS al abrir el modal -->
+		</div>
+
+		<div class="admin-modal__actions">
+			<button class="admin-modal__button admin-modal__button--ghost" type="button" data-modal-close>Cancelar</button>
+			<button class="admin-modal__button admin-modal__button--primary" type="submit">Guardar talles</button>
+		</div>
+	</form>
+</dialog>
