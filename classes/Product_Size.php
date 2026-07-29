@@ -100,6 +100,71 @@ class Product_Size
     return (int) $resultado['total'];
   }
 
+  // Trae TODOS los talles existentes (tabla size), con el stock actual del producto (0 si no tiene fila cargada todavía)
+  // Se usa para armar el modal de "Gestionar talles": así el admin ve y puede cargar stock incluso en talles nuevos
+  public static function getAllSizesWithStock($id_product)
+  {
+    $PDO = (new DB())->getDB();
+
+    $query = "
+      SELECT
+        s.id AS id_size,
+        s.size,
+        COALESCE(ps.stock, 0) AS stock
+      FROM size s
+      LEFT JOIN product_size ps
+        ON ps.id_size = s.id AND ps.id_product = :id_product
+      ORDER BY s.size ASC
+    ";
+
+    $PDOStatement = $PDO->prepare($query);
+    $PDOStatement->bindParam(':id_product', $id_product, PDO::PARAM_INT);
+    $PDOStatement->execute();
+
+    return $PDOStatement->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  // Guarda de una el stock de TODOS los talles de un producto (lo que llega del modal)
+  // $stockPorTalla = [id_size => stock, ...]
+  public static function saveStockForProduct($id_product, array $stockPorTalla)
+  {
+    $PDO = (new DB())->getDB();
+
+    try {
+      $PDO->beginTransaction();
+
+      // Reemplazamos todas las filas del producto: más simple que andar comparando
+      // cuáles ya existían, y no necesita una UNIQUE KEY para hacer upsert.
+      $delete = $PDO->prepare("DELETE FROM product_size WHERE id_product = :id_product");
+      $delete->bindValue(':id_product', $id_product, PDO::PARAM_INT);
+      $delete->execute();
+
+      $insert = $PDO->prepare("
+        INSERT INTO product_size (id_product, id_size, stock)
+        VALUES (:id_product, :id_size, :stock)
+      ");
+
+      foreach ($stockPorTalla as $id_size => $stock) {
+        $stock = max(0, (int) $stock);
+
+        if ($stock === 0) {
+          continue; // no guardamos filas en 0, así no ensuciamos la tabla
+        }
+
+        $insert->bindValue(':id_product', $id_product, PDO::PARAM_INT);
+        $insert->bindValue(':id_size', (int) $id_size, PDO::PARAM_INT);
+        $insert->bindValue(':stock', $stock, PDO::PARAM_INT);
+        $insert->execute();
+      }
+
+      $PDO->commit();
+      return true;
+    } catch (Exception $e) {
+      $PDO->rollBack();
+      return false;
+    }
+  }
+
   // Descuenta stock al confirmar una compra (usar dentro de una transacción)
   public static function descontarStock($id_product, $id_size, $cantidad)
   {
