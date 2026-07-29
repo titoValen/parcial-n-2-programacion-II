@@ -23,9 +23,15 @@ require_once 'components/head.php';
 ?>
 
 <body>
-  <?php require_once 'components/header.php'; ?>
-  <?php require_once "views/$vista.php"; ?>
-  <?php require_once 'components/footer.php'; ?>
+  <?php
+  if ($vista === 'admin' || $vista === 'form_admin') {
+    require_once "views/$vista.php";
+  } else {
+    require_once 'components/header.php';
+    require_once "views/$vista.php";
+    require_once 'components/footer.php';
+  }
+  ?>
 </body>
 
 </html>
