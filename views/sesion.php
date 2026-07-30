@@ -10,14 +10,15 @@ $mensajesError = [
 ?>
 
 <main class="auth-main">
-  <?php if ($error && isset($mensajesError[$error])): ?>
-    <p class="auth-error"><?= htmlspecialchars($mensajesError[$error], ENT_QUOTES, 'UTF-8') ?></p>
-  <?php endif; ?>
-
   <div class="auth-container">
 
     <section class="auth-box" id="login-box">
       <h2>Iniciar sesión</h2>
+
+      <?php if ($error && isset($mensajesError[$error])): ?>
+        <p class="auth-error" id="auth-error-message"><?= htmlspecialchars($mensajesError[$error], ENT_QUOTES, 'UTF-8') ?></p>
+      <?php endif; ?>
+
       <form class="auth-form" action="process/login.php" method="post">
         <label for="login-email">Email</label>
         <input id="login-email" name="email" type="email" required>
@@ -32,6 +33,11 @@ $mensajesError = [
 
     <section class="auth-box" id="register-box">
       <h2>Crear cuenta</h2>
+      
+      <?php if ($error && isset($mensajesError[$error])): ?>
+        <p class="auth-error" id="auth-error-message"><?= htmlspecialchars($mensajesError[$error], ENT_QUOTES, 'UTF-8') ?></p>
+      <?php endif; ?>
+
       <form class="auth-form" action="process/register.php" method="post">
         <label for="reg-name">Nombre</label>
         <input id="reg-name" name="name" type="text" required>
