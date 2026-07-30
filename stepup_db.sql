@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 25-07-2026 a las 00:06:48
+-- Tiempo de generación: 30-07-2026 a las 18:37:01
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -164,6 +164,101 @@ CREATE TABLE `product_size` (
   `stock` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `product_size`
+--
+
+INSERT INTO `product_size` (`id`, `id_product`, `id_size`, `stock`) VALUES
+(7, 2, 1, 6),
+(8, 2, 2, 8),
+(9, 2, 3, 9),
+(10, 2, 4, 8),
+(11, 2, 5, 5),
+(12, 2, 6, 1),
+(13, 3, 1, 3),
+(14, 3, 2, 4),
+(15, 3, 3, 5),
+(16, 3, 4, 4),
+(17, 3, 5, 3),
+(18, 3, 6, 1),
+(25, 5, 1, 9),
+(26, 5, 2, 11),
+(27, 5, 3, 13),
+(28, 5, 4, 10),
+(29, 5, 5, 8),
+(30, 5, 6, 7),
+(31, 6, 1, 2),
+(32, 6, 2, 3),
+(33, 6, 3, 2),
+(34, 6, 4, 2),
+(35, 6, 5, 1),
+(36, 6, 6, 0),
+(37, 7, 1, 3),
+(38, 7, 2, 4),
+(39, 7, 3, 4),
+(40, 7, 4, 3),
+(41, 7, 5, 2),
+(42, 7, 6, 0),
+(43, 8, 1, 12),
+(44, 8, 2, 14),
+(45, 8, 3, 16),
+(46, 8, 4, 12),
+(47, 8, 5, 9),
+(48, 8, 6, 5),
+(49, 9, 1, 10),
+(50, 9, 2, 13),
+(51, 9, 3, 15),
+(52, 9, 4, 13),
+(53, 9, 5, 10),
+(54, 9, 6, 7),
+(55, 10, 1, 14),
+(56, 10, 2, 16),
+(57, 10, 3, 18),
+(58, 10, 4, 14),
+(59, 10, 5, 10),
+(60, 10, 6, 6),
+(61, 11, 1, 15),
+(62, 11, 2, 17),
+(63, 11, 3, 19),
+(64, 11, 4, 15),
+(65, 11, 5, 11),
+(66, 11, 6, 5),
+(67, 12, 1, 18),
+(68, 12, 2, 20),
+(69, 12, 3, 22),
+(70, 12, 4, 18),
+(71, 12, 5, 14),
+(72, 12, 6, 8),
+(73, 13, 1, 8),
+(74, 13, 2, 10),
+(75, 13, 3, 11),
+(76, 13, 4, 9),
+(77, 13, 5, 6),
+(78, 13, 6, 4),
+(85, 15, 1, 0),
+(86, 15, 2, 1),
+(87, 15, 3, 1),
+(88, 15, 4, 1),
+(89, 15, 5, 0),
+(90, 15, 6, 0),
+(97, 1, 1, 8),
+(98, 1, 2, 10),
+(99, 1, 3, 12),
+(100, 1, 4, 10),
+(101, 1, 5, 6),
+(102, 1, 6, 4),
+(103, 4, 1, 60),
+(104, 4, 2, 3),
+(105, 4, 3, 4),
+(106, 4, 4, 2),
+(107, 4, 5, 1),
+(108, 14, 1, 1),
+(109, 14, 2, 2),
+(110, 14, 3, 2),
+(111, 14, 4, 1),
+(112, 14, 5, 1),
+(113, 14, 6, 69);
+
 -- --------------------------------------------------------
 
 --
@@ -175,6 +270,18 @@ CREATE TABLE `size` (
   `size` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `size`
+--
+
+INSERT INTO `size` (`id`, `size`) VALUES
+(1, '38'),
+(2, '39'),
+(3, '40'),
+(4, '41'),
+(5, '42'),
+(6, '43');
+
 -- --------------------------------------------------------
 
 --
@@ -185,6 +292,8 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `name` varchar(150) NOT NULL,
   `email` varchar(150) NOT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `phone` varchar(30) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `role` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -193,8 +302,8 @@ CREATE TABLE `user` (
 -- Volcado de datos para la tabla `user`
 --
 
-INSERT INTO `user` (`id`, `name`, `email`, `password`, `role`) VALUES
-(1, 'valen', '', 'Contraseña', 'admin');
+INSERT INTO `user` (`id`, `name`, `email`, `address`, `phone`, `password`, `role`) VALUES
+(1, 'valen', 'valentin.tito@davinci.edu.ar', 'Fuente al filla 30', '1135844683', 'Contraseña', 'admin');
 
 --
 -- Índices para tablas volcadas
@@ -304,19 +413,19 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT de la tabla `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `product_size`
 --
 ALTER TABLE `product_size`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
 -- AUTO_INCREMENT de la tabla `size`
 --
 ALTER TABLE `size`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
