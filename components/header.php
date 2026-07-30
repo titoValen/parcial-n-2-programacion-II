@@ -8,6 +8,7 @@
       <li><a href="?vista=home">Inicio</a></li>
       <li><a href="?vista=producto">Producto</a></li>
       <li><a href="?vista=contacto">Contacto</a></li>
+      <li><a href="?vista=sesion">Inicio de sesión</a></li>
       <li><a href="?vista=alumno">Alumno</a></li>
     </ul>
   </nav>
@@ -23,6 +24,7 @@
       <li><a href="?vista=home">Inicio</a></li>
       <li><a href="?vista=producto">Producto</a></li>
       <li><a href="?vista=contacto">Contacto</a></li>
+      <li><a href="?vista=sesion">Inicio de sesión</a></li>
       <li><a href="?vista=alumno">Alumno</a></li>
     </ul>
   </nav>

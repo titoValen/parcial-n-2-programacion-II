@@ -35,6 +35,9 @@
       case 'detalle':
         echo '<link rel="stylesheet" href="style/detalle.css">';
         break;
+      case 'sesion':
+        echo '<link rel="stylesheet" href="style/sesion.css">';
+        break;
       case 'form_admin':
         echo '<link rel="stylesheet" href="style/form_admin.css">';
         break;
