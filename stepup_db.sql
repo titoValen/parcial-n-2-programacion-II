@@ -303,7 +303,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `email`, `address`, `phone`, `password`, `role`) VALUES
-(1, 'valen', 'valentin.tito@davinci.edu.ar', 'Fuente al filla 30', '1135844683', 'Contraseña', 'admin');
+(1, 'valen', 'valentin.tito@davinci.edu.ar', 'Fuente al filla 30', '1135844683', '$2y$10$rQvXmA.zDneKXLNA596KtOtA/DslvARyLf2yJJWJaUgk0uH9MRbTO', 'admin');
 
 --
 -- Índices para tablas volcadas
