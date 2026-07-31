@@ -43,6 +43,15 @@
         echo '<link rel="stylesheet" href="style/carrito.css">';
         echo '<script src="js/carrito.js" defer type="module"></script>';
         break;
+      case 'compra_confirmar':
+        echo '<link rel="stylesheet" href="style/compra_confirmar.css">';
+        break;
+      case 'compra_exitosa':
+        echo '<link rel="stylesheet" href="style/compra_exitosa.css">';
+        break;
+      case 'perfil':
+        echo '<link rel="stylesheet" href="style/perfil.css">';
+        break;
       case 'form_admin':
         echo '<link rel="stylesheet" href="style/form_admin.css">';
         break;
