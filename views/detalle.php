@@ -43,26 +43,22 @@ $talles = Product_Size::getByProduct($producto->getId());
           <?php if (empty($talles)): ?>
             <p class="detalle-sin-stock">No hay stock disponible en ningún talle.</p>
           <?php else: ?>
-            <form class="detalle-form" action="?vista=carrito" method="post">
+            <form class="detalle-form" action="process/cart_add.php" method="post">
               <input type="hidden" name="id" value="<?= $producto->getId() ?>">
 
-              <div>
-                <label for="talle">Talle:</label>
-                <select id="talle" name="id_size" required>
-                  <option value="">Elegí un talle</option>
-                  <?php foreach ($talles as $t): ?>
-                    <option value="<?= $t->getIdSize() ?>" data-stock="<?= $t->getStock() ?>">
-                      <?= $t->getSize() ?>
-                    </option>
-                  <?php endforeach; ?>
-                </select>
-                <span id="stock-info" class="stock-info"></span>
-              </div>
+              <label for="talle">Talle:</label>
+              <select id="talle" name="id_size" required>
+                <option value="">Elegí un talle</option>
+                <?php foreach ($talles as $t): ?>
+                  <option value="<?= $t->getIdSize() ?>" data-stock="<?= $t->getStock() ?>">
+                    <?= $t->getSize() ?>
+                  </option>
+                <?php endforeach; ?>
+              </select>
+              <span id="stock-info" class="stock-info"></span>
 
-              <div>
-                <label for="cantidad">Cantidad:</label>
-                <input type="number" id="cantidad" name="cantidad" value="1" min="1" disabled>
-              </div>
+              <label for="cantidad">Cantidad:</label>
+              <input type="number" id="cantidad" name="cantidad" value="1" min="1" disabled>
 
               <button type="submit" id="btn-agregar" disabled>Agregar al carrito</button>
             </form>
