@@ -7,8 +7,15 @@
     <ul>
       <li><a href="?vista=home">Inicio</a></li>
       <li><a href="?vista=producto">Producto</a></li>
+      <li><a href="?vista=carrito">Carrito</a></li>
+      <?php if (isset($_SESSION['user'])): ?>
+        <li class="nav-user">
+          <a href="?vista=perfil"><?= htmlspecialchars($_SESSION['user']['name'], ENT_QUOTES, 'UTF-8') ?></a>
+        </li>
+      <?php else: ?>
+        <li><a href="?vista=sesion">Inicio de sesión</a></li>
+      <?php endif; ?>
       <li><a href="?vista=contacto">Contacto</a></li>
-      <li><a href="?vista=sesion">Inicio de sesión</a></li>
       <li><a href="?vista=alumno">Alumno</a></li>
     </ul>
   </nav>
@@ -23,8 +30,15 @@
     <ul>
       <li><a href="?vista=home">Inicio</a></li>
       <li><a href="?vista=producto">Producto</a></li>
+      <li><a href="?vista=carrito">Carrito</a></li>
+      <?php if (isset($_SESSION['user'])): ?>
+        <li class="nav-user">
+          <a href="?vista=perfil"><?= htmlspecialchars($_SESSION['user']['name'], ENT_QUOTES, 'UTF-8') ?></a>
+        </li>
+      <?php else: ?>
+        <li><a href="?vista=sesion">Inicio de sesión</a></li>
+      <?php endif; ?>
       <li><a href="?vista=contacto">Contacto</a></li>
-      <li><a href="?vista=sesion">Inicio de sesión</a></li>
       <li><a href="?vista=alumno">Alumno</a></li>
     </ul>
   </nav>
