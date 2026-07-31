@@ -17,7 +17,7 @@ if ($vista === 'admin' && (!isset($_SESSION['user']) || ($_SESSION['user']['role
   $vista = 'form_admin';
 }
 
-$vistas_requeren_login = ['carrito', 'perfil'];
+$vistas_requeren_login = ['carrito', 'perfil', 'compra_confirmar', 'compra_exitosa'];
 
 if (in_array($vista, $vistas_requeren_login) && !isset($_SESSION['user'])) {
   $vista = 'sesion';
