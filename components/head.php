@@ -39,6 +39,10 @@
         echo '<link rel="stylesheet" href="style/sesion.css">';
         echo '<script src="js/form-sesion.js" defer type="module"></script>';
         break;
+      case 'carrito':
+        echo '<link rel="stylesheet" href="style/carrito.css">';
+        echo '<script src="js/carrito.js" defer type="module"></script>';
+        break;
       case 'form_admin':
         echo '<link rel="stylesheet" href="style/form_admin.css">';
         break;
