@@ -60,7 +60,10 @@ li,
 label,
 button,
 input,
-textarea {
+textarea,
+select,
+option,
+legend {
   text-wrap: pretty;
   font-family: var(--font-body);
 }
