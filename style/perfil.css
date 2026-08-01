@@ -39,6 +39,138 @@
   gap: 0.5rem;
 }
 
+.perfil-modal {
+  position: fixed;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  width: min(92vw, 620px);
+  max-height: calc(100vh - 2rem);
+  border: none;
+  border-radius: 1.25rem;
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3);
+}
+
+.perfil-modal::backdrop {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.perfil-modal__form {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  max-height: calc(100vh - 2rem);
+  overflow: auto;
+}
+
+.perfil-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.perfil-modal__header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.perfil-modal__close {
+  width: 2.25rem;
+  height: 2.25rem;
+  border: none;
+  border-radius: 999px;
+  background: #eef2f7;
+  color: #1f2937;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  flex: 0 0 auto;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.perfil-modal__close:hover {
+  background: #e2e8f0;
+  transform: scale(1.04);
+}
+
+.perfil-modal__form label {
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.perfil-modal__form input {
+  width: 100%;
+  border: 1px solid #d5dbe3;
+  border-radius: 0.75rem;
+  padding: 0.85rem 0.95rem;
+  font-size: 1rem;
+  font-family: inherit;
+  background: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.perfil-modal__form input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.14);
+}
+
+.perfil-modal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.perfil-modal__actions button {
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.85rem 1.1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease, background-color 0.2s ease;
+}
+
+.perfil-modal__actions button:hover {
+  transform: translateY(-1px);
+}
+
+.perfil-modal__actions button[type="button"] {
+  background: #e9edf3;
+  color: #1f2937;
+}
+
+.perfil-modal__actions button[type="submit"] {
+  background: #111827;
+  color: #fff;
+}
+
+.perfil-modal__danger {
+  background: #dc3545 !important;
+  color: #fff !important;
+}
+
+.perfil-modal--delete {
+  width: min(92vw, 520px);
+}
+
+.perfil-modal--delete .perfil-modal__form {
+  background: linear-gradient(180deg, #fff7f7 0%, #fff 100%);
+}
+
+.perfil-modal--delete p {
+  margin: 0;
+  line-height: 1.6;
+  color: #4b5563;
+}
+
 .perfil-datos__acciones {
   display: flex;
   flex-wrap: wrap;
@@ -92,4 +224,26 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 0.5rem;
+}
+
+@media (max-width: 720px) {
+  .perfil-main h1 {
+    font-size: 2rem;
+  }
+
+  .perfil-modal__form {
+    padding: 1.25rem;
+  }
+
+  .perfil-modal__header {
+    align-items: flex-start;
+  }
+
+  .perfil-modal__actions {
+    justify-content: stretch;
+  }
+
+  .perfil-modal__actions button {
+    width: 100%;
+  }
 }
