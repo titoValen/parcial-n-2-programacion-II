@@ -76,8 +76,6 @@ class User
     $this->phone = $phone;
   }
 
-  // Login histórico usado por form_admin.php — se deja igual para no romper lo que ya anda.
-  // Ojo: todavía tiene el fallback de texto plano, sacalo cuando actualices el hash del seed de admin.
   public static function comparison($name, $pass)
   {
     $PDO = (new DB())->getDB();
@@ -95,7 +93,7 @@ class User
 
     if (
       $user['role'] === 'admin' &&
-      (password_verify($pass, $storedPassword) || $pass === $storedPassword)
+      password_verify($pass, $storedPassword)
     ) {
       return $user;
     }
