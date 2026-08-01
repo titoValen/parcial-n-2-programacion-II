@@ -22,13 +22,14 @@
   gap: 0.5rem;
 }
 
-.container-btns {
+.perfil-datos__acciones {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
 }
 
-.container-btns a {
+.perfil-datos__acciones a,
+.perfil-datos__acciones button {
   text-decoration: none;
   padding: 0.5rem 1rem;
   border-radius: 0.25rem;
@@ -36,17 +37,20 @@
   flex: 1;
   text-align: center;
   min-width: 150px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
-.container-btns a.perfil-datos__editar {
+.perfil-datos__editar {
   background-color: #007bff;
 }
 
-.container-btns a.perfil-datos__cerrar {
+.perfil-datos__logout {
   background-color: #dc3545;
 }
 
-.container-btns a.perfil-datos__eliminar {
+.perfil-datos__eliminar {
   background-color: #6c757d;
 }
 
