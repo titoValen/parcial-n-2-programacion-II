@@ -32,7 +32,7 @@ foreach ($items as $item) {
 
             <form class="carrito-item__cantidad" action="process/cart_update.php" method="post">
               <input type="hidden" name="id_cart" value="<?= $item['id_cart'] ?>">
-              <label for="cantidad-<?= $item['id_cart'] ?>">Cantidad</label>
+              <label for="cantidad-<?= $item['id_cart'] ?>">Cantidad:</label>
               <input
                 id="cantidad-<?= $item['id_cart'] ?>"
                 type="number"
