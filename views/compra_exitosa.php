@@ -9,6 +9,9 @@ $id_buy = $_GET['id'] ?? null;
     <p>Tu número de pedido es <strong>#<?= htmlspecialchars($id_buy, ENT_QUOTES, 'UTF-8') ?></strong>.</p>
   <?php endif; ?>
 
-  <p>Podés ver el detalle en tu <a href="?vista=perfil">perfil</a>.</p>
-  <a href="?vista=producto">Seguir comprando</a>
+  <p>Podés ver el detalle en tu perfil.</p>
+  <div class="container-compra-exitosa-links">
+    <a href="?vista=perfil" class="compra-exitosa-link">Perfil</a>
+    <a class="compra-exitosa-link" href="?vista=producto">Seguir comprando</a>
+  </div>
 </main>

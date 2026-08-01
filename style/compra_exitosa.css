@@ -1,0 +1,41 @@
+.compra-exitosa-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem;
+}
+
+.compra-exitosa-main h1 {
+  font-family: var(--font-title);
+  font-size: 2.5rem;
+}
+
+.compra-exitosa-main p {
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.container-compra-exitosa-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.compra-exitosa-link {
+  font-family: var(--font-title);
+  font-size: 1.2rem;
+  padding: 0.75rem 2rem;
+  background: var(--color-black);
+  color: var(--color-white);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.compra-exitosa-link:hover {
+  background: var(--color-blue);
+}
