@@ -29,38 +29,40 @@ $mensajesError = [
   <?php if (empty($items)): ?>
     <p class="compra-vacio">Tu carrito está vacío. <a href="?vista=producto">Ver productos</a></p>
   <?php else: ?>
-    <section class="compra-resumen">
-      <h2>Resumen del pedido</h2>
+    <div class="compra-container">
+      <section class="compra-resumen">
+        <h2>Resumen del pedido</h2>
 
-      <?php foreach ($items as $item): ?>
-        <div class="compra-resumen__item">
-          <span>
-            <?= htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8') ?>
-            (talle <?= htmlspecialchars($item['size'], ENT_QUOTES, 'UTF-8') ?>) x<?= (int) $item['amount'] ?>
-          </span>
-          <span>$<?= number_format($item['price'] * $item['amount'], 0, ',', '.') ?></span>
-        </div>
-      <?php endforeach; ?>
+        <?php foreach ($items as $item): ?>
+          <div class="compra-resumen__item">
+            <span>
+              <?= htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8') ?>
+              (talle <?= htmlspecialchars($item['size'], ENT_QUOTES, 'UTF-8') ?>) x<?= (int) $item['amount'] ?>
+            </span>
+            <span>$<?= number_format($item['price'] * $item['amount'], 0, ',', '.') ?></span>
+          </div>
+        <?php endforeach; ?>
 
-      <p class="compra-resumen__total">Total: $<?= number_format($total, 0, ',', '.') ?></p>
-    </section>
+        <p class="compra-resumen__total">Total: $<?= number_format($total, 0, ',', '.') ?></p>
+      </section>
 
-    <form class="compra-form" action="process/confirm_purchase.php" method="post">
-      <fieldset class="compra-form__metodo">
-        <legend>Método de pago</legend>
+      <form class="compra-form" action="process/confirm_purchase.php" method="post">
+        <fieldset class="compra-form__metodo">
+          <legend>Método de pago</legend>
 
-        <label>
-          <input type="radio" name="payment_method" value="efectivo" checked>
-          Efectivo
-        </label>
+          <label>
+            <input type="radio" name="payment_method" value="efectivo" checked>
+            Efectivo
+          </label>
 
-        <label>
-          <input type="radio" name="payment_method" value="transferencia">
-          Transferencia
-        </label>
-      </fieldset>
+          <label>
+            <input type="radio" name="payment_method" value="transferencia">
+            Transferencia
+          </label>
+        </fieldset>
 
-      <button type="submit" class="compra-form__submit">Finalizar compra</button>
-    </form>
+        <button type="submit" class="compra-form__submit">Finalizar compra</button>
+      </form>
+    </div>
   <?php endif; ?>
 </main>
