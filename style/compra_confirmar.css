@@ -1,0 +1,81 @@
+.compra-main {
+  display: grid;
+  place-items: center;
+  grid-template-rows: auto 1fr;
+  margin: 2rem;
+}
+
+.compra-main h1 {
+  font-family: var(--font-title);
+  font-size: 2.5rem;
+}
+
+.compra-container {
+  display: flex;
+  gap: 2rem;
+  max-width: 800px;
+  width: 100%;
+}
+
+.compra-container > * {
+  flex: 1;
+}
+
+.compra-resumen {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  border: 2px solid var(--color-black);
+  background: var(--color-gray);
+  border-radius: 4px;
+}
+
+.compra-resumen__item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.compra-resumen__total {
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding-top: 1rem;
+  border-top: 2px solid var(--color-black);
+}
+
+.compra-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  border: 2px solid var(--color-black);
+  background: var(--color-gray);
+  border-radius: 4px;
+}
+
+.compra-form__metodo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid var(--color-black);
+}
+
+.compra-form__metodo legend {
+  font-family: var(--font-title);
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.compra-form__submit {
+  font-family: var(--font-title);
+  font-size: 28px;
+  padding: 0.75rem 2rem;
+  background: var(--color-black);
+  color: var(--color-white);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
