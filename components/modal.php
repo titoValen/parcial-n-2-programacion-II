@@ -180,3 +180,55 @@ $marcas = Brand::getAllBrands();
 		</div>
 	</form>
 </dialog>
+
+<dialog id="catalog-management-modal" class="admin-modal" aria-labelledby="catalog-management-title">
+	<form class="admin-modal__form" action="process/catalog_manage.php" method="post" data-modal-form="catalog">
+		<div class="admin-modal__header">
+			<h2 class="admin-modal__title" id="catalog-management-title">Gestionar categorías y marcas</h2>
+			<button class="admin-modal__close" type="button" data-modal-close aria-label="Cerrar modal">&times;</button>
+		</div>
+
+		<div class="admin-modal__grid">
+			<label class="admin-modal__field" for="catalog-category-name">
+				<span>Nueva categoría</span>
+				<input id="catalog-category-name" name="category_name" type="text" placeholder="Ej: Running">
+			</label>
+
+			<label class="admin-modal__field" for="catalog-brand-name">
+				<span>Nueva marca</span>
+				<input id="catalog-brand-name" name="brand_name" type="text" placeholder="Ej: Jordan">
+			</label>
+		</div>
+
+		<div class="admin-modal__grid">
+			<label class="admin-modal__field admin-modal__field--full" for="catalog-category-id">
+				<span>Eliminar categoría</span>
+				<select id="catalog-category-id" name="delete_category_id">
+					<option value="" selected>Seleccioná una categoría</option>
+					<?php foreach ($categorias as $categoria): ?>
+						<option value="<?= htmlspecialchars($categoria->getId(), ENT_QUOTES, 'UTF-8') ?>">
+							<?= htmlspecialchars($categoria->getName(), ENT_QUOTES, 'UTF-8') ?>
+						</option>
+					<?php endforeach; ?>
+				</select>
+			</label>
+
+			<label class="admin-modal__field admin-modal__field--full" for="catalog-brand-id">
+				<span>Eliminar marca</span>
+				<select id="catalog-brand-id" name="delete_brand_id">
+					<option value="" selected>Seleccioná una marca</option>
+					<?php foreach ($marcas as $marca): ?>
+						<option value="<?= htmlspecialchars($marca->getId(), ENT_QUOTES, 'UTF-8') ?>">
+							<?= htmlspecialchars($marca->getName(), ENT_QUOTES, 'UTF-8') ?>
+						</option>
+					<?php endforeach; ?>
+				</select>
+			</label>
+		</div>
+
+		<div class="admin-modal__actions">
+			<button class="admin-modal__button admin-modal__button--ghost" type="button" data-modal-close>Cancelar</button>
+			<button class="admin-modal__button admin-modal__button--primary" type="submit">Guardar cambios</button>
+		</div>
+	</form>
+</dialog>

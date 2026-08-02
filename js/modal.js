@@ -5,6 +5,7 @@ const dialogs = {
   edit: $.querySelector("#product-edit-modal"),
   delete: $.querySelector("#product-delete-modal"),
   sizes: $.querySelector("#product-sizes-modal"),
+  catalog: $.querySelector("#catalog-management-modal"),
 };
 
 const forms = {
@@ -178,6 +179,10 @@ function handleOpenModal(trigger) {
   if (modalType === "sizes") {
     fillSizesForm(trigger);
     openDialog(dialogs.sizes);
+  }
+
+  if (modalType === "catalog") {
+    openDialog(dialogs.catalog);
   }
 }
 
