@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 30-07-2026 a las 18:37:01
+-- Tiempo de generación: 02-08-2026 a las 21:06:09
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -59,7 +59,8 @@ CREATE TABLE `buys` (
   `id_user` int(11) NOT NULL,
   `date` datetime NOT NULL DEFAULT current_timestamp(),
   `total` int(11) NOT NULL,
-  `state` varchar(20) NOT NULL DEFAULT 'pendiente'
+  `state` varchar(20) NOT NULL DEFAULT 'pendiente',
+  `payment_method` varchar(20) NOT NULL DEFAULT 'efectivo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -171,7 +172,7 @@ CREATE TABLE `product_size` (
 INSERT INTO `product_size` (`id`, `id_product`, `id_size`, `stock`) VALUES
 (7, 2, 1, 6),
 (8, 2, 2, 8),
-(9, 2, 3, 9),
+(9, 2, 3, 8),
 (10, 2, 4, 8),
 (11, 2, 5, 5),
 (12, 2, 6, 1),
@@ -224,13 +225,13 @@ INSERT INTO `product_size` (`id`, `id_product`, `id_size`, `stock`) VALUES
 (65, 11, 5, 11),
 (66, 11, 6, 5),
 (67, 12, 1, 18),
-(68, 12, 2, 20),
+(68, 12, 2, 11),
 (69, 12, 3, 22),
-(70, 12, 4, 18),
+(70, 12, 4, 17),
 (71, 12, 5, 14),
 (72, 12, 6, 8),
 (73, 13, 1, 8),
-(74, 13, 2, 10),
+(74, 13, 2, 5),
 (75, 13, 3, 11),
 (76, 13, 4, 9),
 (77, 13, 5, 6),
@@ -243,7 +244,7 @@ INSERT INTO `product_size` (`id`, `id_product`, `id_size`, `stock`) VALUES
 (90, 15, 6, 0),
 (97, 1, 1, 8),
 (98, 1, 2, 10),
-(99, 1, 3, 12),
+(99, 1, 3, 2),
 (100, 1, 4, 10),
 (101, 1, 5, 6),
 (102, 1, 6, 4),
@@ -303,7 +304,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `email`, `address`, `phone`, `password`, `role`) VALUES
-(1, 'valen', 'valentin.tito@davinci.edu.ar', 'Fuente al filla 30', '1135844683', '$2y$10$rQvXmA.zDneKXLNA596KtOtA/DslvARyLf2yJJWJaUgk0uH9MRbTO', 'admin');
+(1, 'valen', 'valentin.tito@davinci.edu.ar', 'Fuente al filla 30', '1135844683', '$2y$10$rQvXmA.zDneKXLNA596KtOtA/DslvARyLf2yJJWJaUgk0uH9MRbTO', 'admin'),
+(2, 'Tito', 'juegostito806@gmail.com', 'corrientes 3060', '123456789', '$2y$10$qutiN5TUJ0HI/A7WvE4WBO9/4SPZy1akaHqugWceDLIu0ERdz7UD2', 'cliente'),
+(3, 'asas', 'asaq@asa', 'asa', '121', '$2y$10$xE78F65JwefyHE2HQ09gkOGtGTPDlMjbLBz.lbQHtwWxfI/LEwLuG', 'cliente'),
+(5, 'valen', 'prueba@prueba.com', 'hola mundo', '1234555', '$2y$10$bvQQ0hhMwKVhZafD1ReDZeoPI8SF1Hxw4pKPddqYZ6PeOTON/3gk.', 'cliente');
 
 --
 -- Índices para tablas volcadas
@@ -389,19 +393,19 @@ ALTER TABLE `brand`
 -- AUTO_INCREMENT de la tabla `buys`
 --
 ALTER TABLE `buys`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `buys_detail`
 --
 ALTER TABLE `buys_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `category`
@@ -431,7 +435,7 @@ ALTER TABLE `size`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
