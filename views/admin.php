@@ -10,6 +10,7 @@ $productos = Product::product();
     <h1 class="admin-header__title">Panel de administración</h1>
     <div class="admin-actions">
       <button class="admin-actions__add" type="button" data-modal-open="create">Agregar producto</button>
+      <button class="admin-actions__update" type="button" data-modal-open="catalog">Gestionar categorías y marcas</button>
       <a class="admin-actions__logout" href="process/log_out.php">Cerrar sesión</a>
     </div>
   </div>
