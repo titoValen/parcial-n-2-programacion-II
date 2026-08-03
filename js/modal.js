@@ -6,6 +6,7 @@ const dialogs = {
   delete: $.querySelector("#product-delete-modal"),
   sizes: $.querySelector("#product-sizes-modal"),
   catalog: $.querySelector("#catalog-management-modal"),
+  manage: $.querySelector("#admin-management-modal"),
 };
 
 const forms = {
@@ -13,6 +14,9 @@ const forms = {
   edit: dialogs.edit?.querySelector('[data-modal-form="edit"]'),
   delete: dialogs.delete?.querySelector('[data-modal-form="delete"]'),
   sizes: dialogs.sizes?.querySelector('[data-modal-form="sizes"]'),
+  manageCreate: dialogs.manage?.querySelector('[data-modal-form="manage-create"]'),
+  manageEdit: dialogs.manage?.querySelector('[data-modal-form="manage-edit"]'),
+  manageDelete: dialogs.manage?.querySelector('[data-modal-form="manage-delete"]'),
 };
 
 const fields = {
@@ -44,6 +48,15 @@ const fields = {
     idProduct: dialogs.sizes?.querySelector("#sizes-id-product"),
     productName: dialogs.sizes?.querySelector("[data-sizes-product-name]"),
     container: dialogs.sizes?.querySelector("[data-sizes-container]"),
+  },
+  manage: {
+    editSelect: dialogs.manage?.querySelector('[data-admin-select="edit"]'),
+    editName: dialogs.manage?.querySelector("#admin-edit-name"),
+    editEmail: dialogs.manage?.querySelector("#admin-edit-email"),
+    editPassword: dialogs.manage?.querySelector("#admin-edit-password"),
+    editRole: dialogs.manage?.querySelector("#admin-edit-role"),
+    deleteSelect: dialogs.manage?.querySelector('[data-admin-select="delete"]'),
+    deleteWarning: dialogs.manage?.querySelector("[data-admin-delete-warning]"),
   },
 };
 
@@ -79,6 +92,52 @@ function resetCreateForm() {
   if (fields.create.brand) {
     fields.create.brand.selectedIndex = 0;
   }
+}
+
+function getAdminOptionData(select) {
+  const option = select?.selectedOptions?.[0];
+
+  if (!option) {
+    return { name: "", email: "", role: "" };
+  }
+
+  return {
+    name: option.dataset.adminName ?? "",
+    email: option.dataset.adminEmail ?? "",
+    role: option.dataset.adminRole ?? "",
+  };
+}
+
+function syncManageEditForm() {
+  if (!fields.manage.editSelect) return;
+
+  const admin = getAdminOptionData(fields.manage.editSelect);
+
+  if (fields.manage.editName) fields.manage.editName.value = admin.name;
+  if (fields.manage.editEmail) fields.manage.editEmail.value = admin.email;
+  if (fields.manage.editPassword) fields.manage.editPassword.value = "";
+  if (fields.manage.editRole && admin.role) {
+    fields.manage.editRole.value = admin.role;
+  }
+}
+
+function syncManageDeleteForm() {
+  if (!fields.manage.deleteSelect || !fields.manage.deleteWarning) return;
+
+  const admin = getAdminOptionData(fields.manage.deleteSelect);
+
+  if (!admin.name && !admin.email) {
+    fields.manage.deleteWarning.textContent = "No hay administradores disponibles para eliminar.";
+    return;
+  }
+
+  fields.manage.deleteWarning.textContent = admin.email
+    ? `Vas a eliminar a ${admin.name} (${admin.email}).`
+    : `Vas a eliminar a ${admin.name}.`;
+}
+
+function resetManageCreateForm() {
+  forms.manageCreate?.reset();
 }
 
 function fillEditForm(trigger) {
@@ -184,6 +243,13 @@ function handleOpenModal(trigger) {
   if (modalType === "catalog") {
     openDialog(dialogs.catalog);
   }
+
+  if (modalType === "manage") {
+    resetManageCreateForm();
+    syncManageEditForm();
+    syncManageDeleteForm();
+    openDialog(dialogs.manage);
+  }
 }
 
 function bindCloseButtons(dialog) {
@@ -202,6 +268,14 @@ $.addEventListener("DOMContentLoaded", () => {
   $.querySelectorAll("[data-modal-open]").forEach((button) => {
     button.addEventListener("click", () => handleOpenModal(button));
   });
+
+  if (fields.manage.editSelect) {
+    fields.manage.editSelect.addEventListener("change", syncManageEditForm);
+  }
+
+  if (fields.manage.deleteSelect) {
+    fields.manage.deleteSelect.addEventListener("change", syncManageDeleteForm);
+  }
 
   Object.values(dialogs).forEach((dialog) => bindCloseButtons(dialog));
 });

@@ -1,9 +1,13 @@
 <?php
 require_once __DIR__ . '/../classes/Category.php';
 require_once __DIR__ . '/../classes/Brand.php';
+require_once __DIR__ . '/../classes/User.php';
 
 $categorias = Category::getAllCategories();
 $marcas = Brand::getAllBrands();
+$admins = User::getAllAdmins();
+$adminCount = count($admins);
+$currentAdminId = (int) ($_SESSION['user']['id'] ?? 0);
 ?>
 
 <dialog id="product-create-modal" class="admin-modal" aria-labelledby="product-create-title">
@@ -231,4 +235,130 @@ $marcas = Brand::getAllBrands();
 			<button class="admin-modal__button admin-modal__button--primary" type="submit">Guardar cambios</button>
 		</div>
 	</form>
+</dialog>
+
+<dialog id="admin-management-modal" class="admin-modal admin-modal--manage" aria-labelledby="admin-management-title">
+	<div class="admin-modal__form admin-management">
+		<div class="admin-modal__header">
+			<h2 class="admin-modal__title" id="admin-management-title">Gestionar administradores</h2>
+			<button class="admin-modal__close" type="button" data-modal-close aria-label="Cerrar modal">&times;</button>
+		</div>
+
+		<p class="admin-modal__message">
+			Podés crear, editar o eliminar administradores, pero siempre debe quedar al menos uno activo.
+		</p>
+
+		<div class="admin-management__layout">
+			<section class="admin-management__section">
+				<h3 class="admin-management__section-title">Crear admin</h3>
+				<form class="admin-management__form" action="process/create_admin.php" method="post" data-modal-form="manage-create">
+					<div class="admin-modal__grid">
+						<label class="admin-modal__field" for="admin-create-name">
+							<span>Nombre</span>
+							<input id="admin-create-name" name="name" type="text" required>
+						</label>
+
+						<label class="admin-modal__field" for="admin-create-email">
+							<span>Email</span>
+							<input id="admin-create-email" name="email" type="email" required>
+						</label>
+
+						<label class="admin-modal__field admin-modal__field--full" for="admin-create-password">
+							<span>Password</span>
+							<input id="admin-create-password" name="password" type="password" required>
+						</label>
+					</div>
+
+					<div class="admin-modal__actions admin-modal__actions--compact">
+						<button class="admin-modal__button admin-modal__button--primary" type="submit">Crear admin</button>
+					</div>
+				</form>
+			</section>
+
+			<section class="admin-management__section">
+				<h3 class="admin-management__section-title">Editar admin</h3>
+				<form class="admin-management__form" action="process/edit_admin.php" method="post" data-modal-form="manage-edit">
+					<div class="admin-modal__grid">
+						<label class="admin-modal__field admin-modal__field--full" for="admin-edit-id">
+							<span>Seleccionar admin</span>
+							<select id="admin-edit-id" name="id" data-admin-select="edit" required>
+								<?php foreach ($admins as $admin): ?>
+									<option
+										value="<?= htmlspecialchars($admin->getId(), ENT_QUOTES, 'UTF-8') ?>"
+										data-admin-name="<?= htmlspecialchars($admin->getName(), ENT_QUOTES, 'UTF-8') ?>"
+										data-admin-email="<?= htmlspecialchars($admin->getEmail(), ENT_QUOTES, 'UTF-8') ?>"
+										data-admin-role="<?= htmlspecialchars($admin->getRole(), ENT_QUOTES, 'UTF-8') ?>"
+										<?= (int) $admin->getId() === $currentAdminId ? 'selected' : '' ?>>
+										<?= htmlspecialchars($admin->getName(), ENT_QUOTES, 'UTF-8') ?> (<?= htmlspecialchars($admin->getEmail(), ENT_QUOTES, 'UTF-8') ?>)
+									</option>
+								<?php endforeach; ?>
+							</select>
+						</label>
+
+						<label class="admin-modal__field" for="admin-edit-name">
+							<span>Nombre</span>
+							<input id="admin-edit-name" name="name" type="text" required>
+						</label>
+
+						<label class="admin-modal__field" for="admin-edit-email">
+							<span>Email</span>
+							<input id="admin-edit-email" name="email" type="email" required>
+						</label>
+
+						<label class="admin-modal__field" for="admin-edit-role">
+							<span>Rol</span>
+							<select id="admin-edit-role" name="role" required>
+								<option value="admin">admin</option>
+								<option value="cliente">cliente</option>
+							</select>
+						</label>
+
+						<label class="admin-modal__field admin-modal__field--full" for="admin-edit-password">
+							<span>Password</span>
+							<input id="admin-edit-password" name="password" type="password" placeholder="Dejar vacío para conservar la actual">
+						</label>
+					</div>
+
+					<div class="admin-modal__actions admin-modal__actions--compact">
+						<button class="admin-modal__button admin-modal__button--primary" type="submit">Guardar admin</button>
+					</div>
+				</form>
+			</section>
+
+			<section class="admin-management__section admin-management__section--danger">
+				<h3 class="admin-management__section-title">Eliminar admin</h3>
+				<form class="admin-management__form" action="process/delete_admin.php" method="post" data-modal-form="manage-delete">
+					<div class="admin-modal__grid">
+						<label class="admin-modal__field admin-modal__field--full" for="admin-delete-id">
+							<span>Seleccionar admin</span>
+							<select id="admin-delete-id" name="id" data-admin-select="delete" required <?= $adminCount <= 1 ? 'disabled' : '' ?>>
+								<?php foreach ($admins as $admin): ?>
+									<option
+										value="<?= htmlspecialchars($admin->getId(), ENT_QUOTES, 'UTF-8') ?>"
+										data-admin-name="<?= htmlspecialchars($admin->getName(), ENT_QUOTES, 'UTF-8') ?>"
+										data-admin-email="<?= htmlspecialchars($admin->getEmail(), ENT_QUOTES, 'UTF-8') ?>"
+										data-admin-role="<?= htmlspecialchars($admin->getRole(), ENT_QUOTES, 'UTF-8') ?>"
+										<?= (int) $admin->getId() === $currentAdminId ? 'selected' : '' ?>>
+										<?= htmlspecialchars($admin->getName(), ENT_QUOTES, 'UTF-8') ?> (<?= htmlspecialchars($admin->getEmail(), ENT_QUOTES, 'UTF-8') ?>)
+									</option>
+								<?php endforeach; ?>
+							</select>
+						</label>
+					</div>
+
+					<p class="admin-management__warning" data-admin-delete-warning>
+						<?php if ($adminCount <= 1): ?>
+							No podés eliminar al único administrador existente.
+						<?php else: ?>
+							Esta acción elimina al administrador seleccionado y no se puede deshacer.
+						<?php endif; ?>
+					</p>
+
+					<div class="admin-modal__actions admin-modal__actions--compact">
+						<button class="admin-modal__button admin-modal__button--danger" type="submit" <?= $adminCount <= 1 ? 'disabled' : '' ?>>Eliminar admin</button>
+					</div>
+				</form>
+			</section>
+		</div>
+	</div>
 </dialog>
