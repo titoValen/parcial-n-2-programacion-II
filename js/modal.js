@@ -50,6 +50,8 @@ const fields = {
     container: dialogs.sizes?.querySelector("[data-sizes-container]"),
   },
   manage: {
+    tabs: dialogs.manage?.querySelectorAll("[data-admin-action-tab]"),
+    panels: dialogs.manage?.querySelectorAll("[data-admin-panel]"),
     editSelect: dialogs.manage?.querySelector('[data-admin-select="edit"]'),
     editName: dialogs.manage?.querySelector("#admin-edit-name"),
     editEmail: dialogs.manage?.querySelector("#admin-edit-email"),
@@ -138,6 +140,23 @@ function syncManageDeleteForm() {
 
 function resetManageCreateForm() {
   forms.manageCreate?.reset();
+}
+
+function setManageMode(mode) {
+  const tabs = Array.from(fields.manage.tabs ?? []);
+  const panels = Array.from(fields.manage.panels ?? []);
+
+  tabs.forEach((tab) => {
+    const isActive = tab.dataset.adminActionTab === mode;
+    tab.classList.toggle("is-active", isActive);
+    tab.setAttribute("aria-selected", String(isActive));
+  });
+
+  panels.forEach((panel) => {
+    const isActive = panel.dataset.adminPanel === mode;
+    panel.classList.toggle("is-active", isActive);
+    panel.toggleAttribute("hidden", !isActive);
+  });
 }
 
 function fillEditForm(trigger) {
@@ -246,6 +265,7 @@ function handleOpenModal(trigger) {
 
   if (modalType === "manage") {
     resetManageCreateForm();
+    setManageMode("create");
     syncManageEditForm();
     syncManageDeleteForm();
     openDialog(dialogs.manage);
@@ -276,6 +296,24 @@ $.addEventListener("DOMContentLoaded", () => {
   if (fields.manage.deleteSelect) {
     fields.manage.deleteSelect.addEventListener("change", syncManageDeleteForm);
   }
+
+  fields.manage.tabs?.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      setManageMode(tab.dataset.adminActionTab ?? "create");
+
+      if (tab.dataset.adminActionTab === "create") {
+        resetManageCreateForm();
+      }
+
+      if (tab.dataset.adminActionTab === "edit") {
+        syncManageEditForm();
+      }
+
+      if (tab.dataset.adminActionTab === "delete") {
+        syncManageDeleteForm();
+      }
+    });
+  });
 
   Object.values(dialogs).forEach((dialog) => bindCloseButtons(dialog));
 });

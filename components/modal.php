@@ -248,9 +248,14 @@ $currentAdminId = (int) ($_SESSION['user']['id'] ?? 0);
 			Podés crear, editar o eliminar administradores, pero siempre debe quedar al menos uno activo.
 		</p>
 
-		<div class="admin-management__layout">
-			<section class="admin-management__section">
-				<h3 class="admin-management__section-title">Crear admin</h3>
+		<div class="admin-management__toolbar" role="tablist" aria-label="Acciones de administrador">
+			<button class="admin-management__tab is-active" type="button" data-admin-action-tab="create">Crear admin</button>
+			<button class="admin-management__tab" type="button" data-admin-action-tab="edit">Editar admin</button>
+			<button class="admin-management__tab" type="button" data-admin-action-tab="delete">Eliminar admin</button>
+		</div>
+
+		<div class="admin-management__panels">
+			<section class="admin-management__panel is-active" data-admin-panel="create">
 				<form class="admin-management__form" action="process/create_admin.php" method="post" data-modal-form="manage-create">
 					<div class="admin-modal__grid">
 						<label class="admin-modal__field" for="admin-create-name">
@@ -275,8 +280,7 @@ $currentAdminId = (int) ($_SESSION['user']['id'] ?? 0);
 				</form>
 			</section>
 
-			<section class="admin-management__section">
-				<h3 class="admin-management__section-title">Editar admin</h3>
+			<section class="admin-management__panel" data-admin-panel="edit" hidden>
 				<form class="admin-management__form" action="process/edit_admin.php" method="post" data-modal-form="manage-edit">
 					<div class="admin-modal__grid">
 						<label class="admin-modal__field admin-modal__field--full" for="admin-edit-id">
@@ -325,8 +329,7 @@ $currentAdminId = (int) ($_SESSION['user']['id'] ?? 0);
 				</form>
 			</section>
 
-			<section class="admin-management__section admin-management__section--danger">
-				<h3 class="admin-management__section-title">Eliminar admin</h3>
+			<section class="admin-management__panel admin-management__panel--danger" data-admin-panel="delete" hidden>
 				<form class="admin-management__form" action="process/delete_admin.php" method="post" data-modal-form="manage-delete">
 					<div class="admin-modal__grid">
 						<label class="admin-modal__field admin-modal__field--full" for="admin-delete-id">
