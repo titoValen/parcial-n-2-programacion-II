@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 02-08-2026 a las 21:06:09
+-- Tiempo de generación: 04-08-2026 a las 01:11:52
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -63,6 +63,13 @@ CREATE TABLE `buys` (
   `payment_method` varchar(20) NOT NULL DEFAULT 'efectivo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `buys`
+--
+
+INSERT INTO `buys` (`id`, `id_user`, `date`, `total`, `state`, `payment_method`) VALUES
+(5, 6, '2026-08-03 04:00:42', 300000, 'pagado', 'efectivo');
+
 -- --------------------------------------------------------
 
 --
@@ -77,6 +84,14 @@ CREATE TABLE `buys_detail` (
   `amount` int(11) NOT NULL DEFAULT 1,
   `unit_price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `buys_detail`
+--
+
+INSERT INTO `buys_detail` (`id`, `id_buys`, `id_product`, `id_size`, `amount`, `unit_price`) VALUES
+(7, 5, 11, 6, 1, 100000),
+(8, 5, 4, 3, 1, 200000);
 
 -- --------------------------------------------------------
 
@@ -223,7 +238,7 @@ INSERT INTO `product_size` (`id`, `id_product`, `id_size`, `stock`) VALUES
 (63, 11, 3, 19),
 (64, 11, 4, 15),
 (65, 11, 5, 11),
-(66, 11, 6, 5),
+(66, 11, 6, 4),
 (67, 12, 1, 18),
 (68, 12, 2, 11),
 (69, 12, 3, 22),
@@ -242,7 +257,7 @@ INSERT INTO `product_size` (`id`, `id_product`, `id_size`, `stock`) VALUES
 (88, 15, 4, 1),
 (89, 15, 5, 0),
 (90, 15, 6, 0),
-(97, 1, 1, 8),
+(97, 1, 1, 3),
 (98, 1, 2, 10),
 (99, 1, 3, 2),
 (100, 1, 4, 10),
@@ -250,7 +265,7 @@ INSERT INTO `product_size` (`id`, `id_product`, `id_size`, `stock`) VALUES
 (102, 1, 6, 4),
 (103, 4, 1, 60),
 (104, 4, 2, 3),
-(105, 4, 3, 4),
+(105, 4, 3, 3),
 (106, 4, 4, 2),
 (107, 4, 5, 1),
 (108, 14, 1, 1),
@@ -307,7 +322,7 @@ INSERT INTO `user` (`id`, `name`, `email`, `address`, `phone`, `password`, `role
 (1, 'valen', 'valentin.tito@davinci.edu.ar', 'Fuente al filla 30', '1135844683', '$2y$10$rQvXmA.zDneKXLNA596KtOtA/DslvARyLf2yJJWJaUgk0uH9MRbTO', 'admin'),
 (2, 'Tito', 'juegostito806@gmail.com', 'corrientes 3060', '123456789', '$2y$10$qutiN5TUJ0HI/A7WvE4WBO9/4SPZy1akaHqugWceDLIu0ERdz7UD2', 'cliente'),
 (3, 'asas', 'asaq@asa', 'asa', '121', '$2y$10$xE78F65JwefyHE2HQ09gkOGtGTPDlMjbLBz.lbQHtwWxfI/LEwLuG', 'cliente'),
-(5, 'valen', 'prueba@prueba.com', 'hola mundo', '1234555', '$2y$10$bvQQ0hhMwKVhZafD1ReDZeoPI8SF1Hxw4pKPddqYZ6PeOTON/3gk.', 'cliente');
+(6, 'prueba123', 'prueba@prueba.com', 'prueba', '1234', '$2y$10$GT.b7vZqubpCDOPzfU1M5OlAUO2mht./5LaFi4uI2Iy/wYAf5mzMe', 'cliente');
 
 --
 -- Índices para tablas volcadas
@@ -393,25 +408,25 @@ ALTER TABLE `brand`
 -- AUTO_INCREMENT de la tabla `buys`
 --
 ALTER TABLE `buys`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `buys_detail`
 --
 ALTER TABLE `buys_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `product`
@@ -435,7 +450,7 @@ ALTER TABLE `size`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas
