@@ -21,6 +21,17 @@
   cursor: pointer;
 }
 
+.admin-actions__manage {
+  border: none;
+  border-radius: 0.375rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background: #111827;
+  color: var(--color-white);
+  cursor: pointer;
+}
+
 .admin-actions__update {
   border: none;
   border-radius: 0.375rem;
@@ -212,6 +223,88 @@
   width: min(92vw, 520px);
 }
 
+.admin-modal--manage {
+  width: min(96vw, 800px);
+}
+
+.admin-management {
+  gap: 1rem;
+}
+
+.admin-management__toolbar {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.admin-management__tab {
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  padding: 0.85rem 1rem;
+  background: #f9fafb;
+  color: #111827;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.admin-management__tab.is-active {
+  background: #111827;
+  color: var(--color-white);
+  border-color: #111827;
+}
+
+.admin-management__panels {
+  display: grid;
+  gap: 1rem;
+}
+
+.admin-management__panel {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  background: #f9fafb;
+}
+
+.admin-management__panel--danger {
+  border-color: #f5c2c2;
+  background: #fff5f5;
+}
+
+.admin-management__panel[hidden] {
+  display: none;
+}
+
+.admin-management__section-title {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.admin-management__form {
+  display: grid;
+  gap: 1rem;
+}
+
+.admin-management__warning {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #7f1d1d;
+}
+
+.admin-modal__actions--compact {
+  justify-content: flex-start;
+}
+
+.admin-modal__button:disabled,
+.admin-modal__button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .admin-modal__button--primary {
   background: #0a9913;
   color: var(--color-white);
@@ -219,6 +312,10 @@
 
 @media (max-width: 720px) {
   .admin-modal__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-management__toolbar {
     grid-template-columns: 1fr;
   }
 
