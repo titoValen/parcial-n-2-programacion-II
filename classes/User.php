@@ -76,6 +76,8 @@ class User
     $this->phone = $phone;
   }
 
+  // Login histórico usado por form_admin.php — se deja igual para no romper lo que ya anda.
+  // Ojo: todavía tiene el fallback de texto plano, sacalo cuando actualices el hash del seed de admin.
   public static function comparison($name, $pass)
   {
     $PDO = (new DB())->getDB();
@@ -101,6 +103,7 @@ class User
     return false;
   }
 
+  // Login general por email, para cualquier rol (cliente o admin). Sin fallback de texto plano.
   public static function login($email, $pass)
   {
     $PDO = (new DB())->getDB();
@@ -132,6 +135,77 @@ class User
     return (bool) $stmt->fetch();
   }
 
+  public static function countAdmins()
+  {
+    $PDO = (new DB())->getDB();
+
+    $query = "SELECT COUNT(*) AS total FROM user WHERE role = 'admin'";
+    $stmt = $PDO->query($query);
+    $row = $stmt ? $stmt->fetch(PDO::FETCH_ASSOC) : ['total' => 0];
+
+    return (int) ($row['total'] ?? 0);
+  }
+
+  public static function getAllAdmins()
+  {
+    $PDO = (new DB())->getDB();
+
+    $query = "SELECT id, name, email, role FROM user WHERE role = 'admin' ORDER BY id ASC";
+    $stmt = $PDO->prepare($query);
+    $stmt->setFetchMode(PDO::FETCH_CLASS, self::class);
+    $stmt->execute();
+
+    return $stmt->fetchAll();
+  }
+
+  public static function updateAdmin($id, $name, $email, $role, $newPassword = null)
+  {
+    try {
+      $allowedRoles = ['admin', 'cliente'];
+      if (!in_array($role, $allowedRoles, true)) {
+        return false;
+      }
+
+      $PDO = (new DB())->getDB();
+
+      $query = "UPDATE user SET name = :name, email = :email, role = :role";
+      if ($newPassword !== null) {
+        $query .= ", password = :password";
+      }
+      $query .= " WHERE id = :id";
+
+      $stmt = $PDO->prepare($query);
+      $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+      $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+      $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+      $stmt->bindValue(':role', $role, PDO::PARAM_STR);
+
+      if ($newPassword !== null) {
+        $stmt->bindValue(':password', password_hash($newPassword, PASSWORD_DEFAULT), PDO::PARAM_STR);
+      }
+
+      $stmt->execute();
+      return true;
+    } catch (Exception $e) {
+      return false;
+    }
+  }
+
+  public static function deleteAdmin($id)
+  {
+    $admin = self::getById($id);
+
+    if (!$admin || ($admin->getRole() ?? null) !== 'admin') {
+      return false;
+    }
+
+    if (self::countAdmins() <= 1) {
+      return false;
+    }
+
+    return self::delete($id);
+  }
+
   // Registro de un cliente nuevo. Devuelve el id creado, o false si falló (ej. email duplicado).
   public static function register($name, $email, $password, $address = '', $phone = '')
   {
@@ -158,6 +232,32 @@ class User
     }
   }
 
+  // Crea un usuario con rol admin. Separado de register() a propósito: nace con permisos
+  // distintos y solo lo puede invocar otro admin ya logueado (lo valida el process, no esta clase).
+  public static function createAdmin($name, $email, $password)
+  {
+    try {
+      $PDO = (new DB())->getDB();
+      $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+      $query = "
+        INSERT INTO user (name, email, password, role)
+        VALUES (:name, :email, :password, 'admin')
+      ";
+
+      $stmt = $PDO->prepare($query);
+      $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+      $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+      $stmt->bindValue(':password', $hashedPassword, PDO::PARAM_STR);
+      $stmt->execute();
+
+      return (int) $PDO->lastInsertId();
+    } catch (Exception $e) {
+      return false; // probablemente el email ya existe (UNIQUE constraint)
+    }
+  }
+
+  // Para la futura página de perfil: trae el usuario completo como objeto
   public static function getById($id)
   {
     $PDO = (new DB())->getDB();
